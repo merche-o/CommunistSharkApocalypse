@@ -11,7 +11,7 @@ GameEngine::GameEngine(void)
 	window.create(sf::VideoMode(Settings::WIDTH, Settings::HEIGHT, Settings::CASE_SIZE), Settings::GAME_NAME);
 	window.setFramerateLimit(30);
 	
-	player.push_back(new Player());
+	player.push_back(new Player(loopTime, P_BLACK, S_BLACK));
 	
 	state = MENU;
 	restart = false;

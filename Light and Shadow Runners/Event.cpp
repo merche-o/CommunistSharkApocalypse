@@ -21,19 +21,43 @@ void Event::checkEvent()
 		{
 			if (event.key.code == sf::Keyboard::Escape)
 				win.close();
-			else if (event.key.code == sf::Keyboard::Up);
-			else if (event.key.code == sf::Keyboard::Down);
-			else if (event.key.code == sf::Keyboard::Left);
-			else if (event.key.code == sf::Keyboard::Right);
+			else if (event.key.code == sf::Keyboard::Up)
+				this->player[0]->inputMap[UP] = true;
+			else if (event.key.code == sf::Keyboard::Down)
+				this->player[0]->inputMap[DOWN] = true;
+			else if (event.key.code == sf::Keyboard::Left)
+				this->player[0]->inputMap[LEFT] = true;
+			else if (event.key.code == sf::Keyboard::Right)
+				this->player[0]->inputMap[RIGHT] = true;
 		}
 		else if (event.type == sf::Event::KeyReleased)
 		{
-			if (event.key.code == sf::Keyboard::Up);
-			else if (event.key.code == sf::Keyboard::Down);
-			else if (event.key.code == sf::Keyboard::Left);
-			else if (event.key.code == sf::Keyboard::Right);
+			if (event.key.code == sf::Keyboard::Up)
+				this->player[0]->inputMap[UP] = false;
+			else if (event.key.code == sf::Keyboard::Down)
+				this->player[0]->inputMap[DOWN] = false;
+			else if (event.key.code == sf::Keyboard::Left)
+				this->player[0]->inputMap[LEFT] = false;
+			else if (event.key.code == sf::Keyboard::Right)
+				this->player[0]->inputMap[RIGHT] = false;
 		}
     }
+}
+ 
+//have to finish player inputKey
+
+void Event::setPlayer1Key()
+	{
+		if (event.key.code == sf::Keyboard::Escape)
+				win.close();
+			else if (event.key.code == sf::Keyboard::Up)
+				this->player[0]->inputMap[UP] = true;
+			else if (event.key.code == sf::Keyboard::Down)
+				this->player[0]->inputMap[DOWN] = true;
+			else if (event.key.code == sf::Keyboard::Left)
+				this->player[0]->inputMap[LEFT] = true;
+			else if (event.key.code == sf::Keyboard::Right)
+				this->player[0]->inputMap[RIGHT] = true;
 }
 
 void Event::menuEvent(int & pos, bool & push, bool & refresh)
