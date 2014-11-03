@@ -1,12 +1,9 @@
 #include "Player.h"
 
 
-Player::Player(float &LoopTime, p_color Color, p_side Side)
-	: loopTime(LoopTime), color(Color), side(Side)
+Player::Player(float &LoopTime, int num)
+	: loopTime(LoopTime)
 {
-	//texture.loadFromFile("../Ressources/Images/Player.png");
-	x = 0;
-	y = 0;
 
 	int i = 0;
 	while (i < 4)
@@ -15,10 +12,23 @@ Player::Player(float &LoopTime, p_color Color, p_side Side)
 			++i;
 		}
 	
-	animFrame = 1;
-	dir = D_LEFT;
-	act = WALK;
-	speed = 4;
+width = 50;
+	height = 50;
+	scale = 1.0;
+	home = true;
+	speed = 5;
+	if (num == 1)
+	{
+		color = BLACK;
+		x = 10;
+		y = Settings::HEIGHT / 2;
+	}
+	else if (num == 2)
+	{
+		color = WHITE;
+		x = Settings::WIDTH - width - 10;
+		y = Settings::HEIGHT / 2;
+	}
 }
 
 

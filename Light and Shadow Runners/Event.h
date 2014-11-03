@@ -18,7 +18,8 @@ private:
 	sf::Window & win;
 	sf::Event event;
 	std::vector<Player*> & player;
-	void setPlayer1Key();
+	void setPlayer1Key(bool);
+	void setPlayer2Key(bool);
 public:
 	Event(sf::Window & w, std::vector<Player*> & p);
 	~Event(void);

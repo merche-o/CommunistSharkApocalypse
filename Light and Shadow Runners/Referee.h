@@ -28,5 +28,11 @@ public:
 	void RmoveRight(Player *src);
 	void RmoveDown(Player *src);
 	void RmoveUp(Player *src);
+
+	//GamePlay
+	void jump(Player *src);
+	void changeSide(Player *src);
+	void moveMapLine(Player *src);
+	bool killPlayer();
 };
 

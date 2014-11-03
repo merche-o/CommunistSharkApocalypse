@@ -37,12 +37,21 @@ void Referee::playerMove()
 
 void Referee::moveLeft(Player *src)
 {
+	/*if(src->home == true && src->color == WHITE);
+		//src->changeSide();
+	else if (src->side == S_WHITE);
+		//src->changeSide();
+	*/
 	return;
 }
 
 
 void Referee::moveRight(Player *src)
 {
+/*	if(src->side == S_WHITE);
+		//src->jump();
+	else if (src->side == S_BLACK);
+		//src->changeSide();*/
 	return;
 }
 
@@ -85,3 +94,26 @@ void Referee::RmoveDown(Player *src)
 	return;		   
 }				   
 
+void Referee::moveMapLine(Player *src)
+{				   
+	if (src->color == WHITE && src->home == false);
+	//src->scale -=  downSideSpeed * loopTime;	
+	//map->PushWhiteSide();
+	else if (src->color == BLACK && src->home == false);
+	//src->scale -=  downSideSpeed * loopTime;	
+	//map->PushBlackSide();
+	return;		   
+}				   
+
+bool Referee::killPlayer()
+{
+	for (int i = 0; i < playerList.size(); i++)
+		{
+			if(playerList[i]->scale <= 0.1)
+				playerList.erase(playerList.begin() + i);
+		}
+	if (playerList.size() < 2)
+	return false;
+	else
+		return true;
+}	

@@ -1,4 +1,5 @@
 #include "GameMenu.h"
+#include "Settings.h"
 #include <iostream>
 
 GameMenu::GameMenu(sf::RenderWindow & w, Event & e, Parameters & p, bool & s)
@@ -15,8 +16,8 @@ GameMenu::GameMenu(sf::RenderWindow & w, Event & e, Parameters & p, bool & s)
 	addKeyTextMenu(MAIN, new TextMenu(400, 400, "Credits", 64), &GameMenu::menuCredits);
 	addKeyTextMenu(MAIN, new TextMenu(400, 500, "Quit", 64), &GameMenu::menuReturn);
 	
-	addTextMenu(SETTINGS, new TextMenu(350, 0, "Settings", 128, 250, 60, 60));
-	addKeyTextMenu(SETTINGS, new TextMenu(400, 200, "Back", 64), &GameMenu::menuReturn);
+	addTextMenu(SETTING, new TextMenu(350, 0, "Settings", 128, 250, 60, 60));
+	addKeyTextMenu(SETTING, new TextMenu(400, 200, "Back", 64), &GameMenu::menuReturn);
 
 	addTextMenu(CREDITS, new TextMenu(350, 0, "Credits", 128, 250, 60, 60));
 	addTextMenu(CREDITS, new TextMenu(300, 200, "Olivier", 64, 60, 250, 150));
@@ -50,6 +51,7 @@ void GameMenu::run()
 			posMenu = 0;
 		
 		win.clear();
+		drawSquare(Settings::WIDTH / 2, 0, Settings::WIDTH / 2, Settings::HEIGHT, 0, 255, 255, 255, 255);
 		displayCurrentMenu();
 		win.display();
 
@@ -63,14 +65,11 @@ void GameMenu::displayCurrentMenu()
 {
 	for (int i = 0; i < sizeTextMenu[currentState]; ++i)
 	{
-		loadText(textMenu[std::make_pair(currentState, i)]->x, 
+		loadSplitText(textMenu[std::make_pair(currentState, i)]->x, 
 				textMenu[std::make_pair(currentState, i)]->y, 
 				font, 
 				textMenu[std::make_pair(currentState, i)]->text, 
-				textMenu[std::make_pair(currentState, i)]->size,
-				textMenu[std::make_pair(currentState, i)]->color.r, 
-				textMenu[std::make_pair(currentState, i)]->color.g, 
-				textMenu[std::make_pair(currentState, i)]->color.b);
+				textMenu[std::make_pair(currentState, i)]->size);
 	}
 
 	for (int i = 0; i < sizeKeyTextMenu[currentState]; ++i)
@@ -103,7 +102,7 @@ void GameMenu::menuCredits()
 
 void GameMenu::menuSettings()
 {
-	currentState = SETTINGS;
+	currentState = SETTING;
 }
 
 void GameMenu::menuReturn()

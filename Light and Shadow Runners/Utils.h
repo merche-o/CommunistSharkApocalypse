@@ -8,6 +8,5 @@
 
 std::string		IntToString(int);
 int			StringToInt(std::string);
-int			Case(int);
 
 #endif

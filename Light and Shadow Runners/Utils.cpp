@@ -17,8 +17,3 @@ int			StringToInt(std::string str)
   iss >> number;
   return (number);
 }
-
-int			Case(int n)
-{
-  return (n * Settings::CASE_SIZE);
-}

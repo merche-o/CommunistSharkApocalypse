@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Event.h"
 #include "SoundEngine.h"
+#include "Map.h"
 
 enum e_state
 {
@@ -19,6 +20,8 @@ enum e_state
 class GameEngine
 {
 private:
+	Map map;
+
 	e_state state;
 	Parameters parameters;
 	GameMenu menu;

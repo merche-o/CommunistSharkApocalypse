@@ -15,7 +15,7 @@ private:
 	enum e_state
 	{
 		MAIN,
-		SETTINGS,
+		SETTING,
 		CREDITS,
 		NONE
 	};

@@ -2,16 +2,17 @@
 #include <iostream>
 
 GameEngine::GameEngine(void)
-	: graphic(window, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player)
+	: map(), graphic(window, map.map, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player)
 {
 	sound.musicOFF();
 	sound.playMusic(sound.music);
 
 
-	window.create(sf::VideoMode(Settings::WIDTH, Settings::HEIGHT, Settings::CASE_SIZE), Settings::GAME_NAME);
+	window.create(sf::VideoMode(Settings::WIDTH, Settings::HEIGHT), Settings::GAME_NAME);
 	window.setFramerateLimit(30);
 	
-	player.push_back(new Player(loopTime, P_BLACK, S_BLACK));
+	player.push_back(new Player(loopTime,1));
+	player.push_back(new Player(loopTime,2));
 	
 	state = MENU;
 	restart = false;
@@ -40,15 +41,18 @@ void GameEngine::run()
 				restart = false;
 			}
 			
-			window.clear();
-	
 			globalTimer = globalClock.getElapsedTime();
 			loopTime = globalTimer.asSeconds();
 			globalClock.restart();
 
 
+
+
 			event.checkEvent();
-		
+
+			window.clear();
+			graphic.drawMap();
+			graphic.drawPlayer();
 		
 			graphic.RefreshWindow();
 		}

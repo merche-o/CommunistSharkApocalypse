@@ -13,51 +13,50 @@ Event::~Event(void)
 
 void Event::checkEvent()
 {
+	bool push = true;
 	while (win.pollEvent(event))
     {
 		if (event.type == sf::Event::Closed)
             win.close();
 		else if (event.type == sf::Event::KeyPressed)
 		{
-			if (event.key.code == sf::Keyboard::Escape)
-				win.close();
-			else if (event.key.code == sf::Keyboard::Up)
-				this->player[0]->inputMap[UP] = true;
-			else if (event.key.code == sf::Keyboard::Down)
-				this->player[0]->inputMap[DOWN] = true;
-			else if (event.key.code == sf::Keyboard::Left)
-				this->player[0]->inputMap[LEFT] = true;
-			else if (event.key.code == sf::Keyboard::Right)
-				this->player[0]->inputMap[RIGHT] = true;
+			setPlayer1Key(push);
+			setPlayer2Key(push);
 		}
 		else if (event.type == sf::Event::KeyReleased)
 		{
-			if (event.key.code == sf::Keyboard::Up)
-				this->player[0]->inputMap[UP] = false;
-			else if (event.key.code == sf::Keyboard::Down)
-				this->player[0]->inputMap[DOWN] = false;
-			else if (event.key.code == sf::Keyboard::Left)
-				this->player[0]->inputMap[LEFT] = false;
-			else if (event.key.code == sf::Keyboard::Right)
-				this->player[0]->inputMap[RIGHT] = false;
+			push = false;
+			setPlayer1Key(push);
+			setPlayer2Key(push);
 		}
     }
 }
  
 //have to finish player inputKey
 
-void Event::setPlayer1Key()
+void Event::setPlayer1Key(bool value)
 	{
 		if (event.key.code == sf::Keyboard::Escape)
 				win.close();
 			else if (event.key.code == sf::Keyboard::Up)
-				this->player[0]->inputMap[UP] = true;
+				this->player[0]->inputMap[UP] = value;
 			else if (event.key.code == sf::Keyboard::Down)
-				this->player[0]->inputMap[DOWN] = true;
+				this->player[0]->inputMap[DOWN] = value;
 			else if (event.key.code == sf::Keyboard::Left)
-				this->player[0]->inputMap[LEFT] = true;
+				this->player[0]->inputMap[LEFT] = value;
 			else if (event.key.code == sf::Keyboard::Right)
-				this->player[0]->inputMap[RIGHT] = true;
+				this->player[0]->inputMap[RIGHT] = value;
+}
+void Event::setPlayer2Key(bool value) 	{
+		
+			 if (event.key.code == sf::Keyboard::Z)
+				this->player[1]->inputMap[UP] = value;
+			else if (event.key.code == sf::Keyboard::S)
+				this->player[1]->inputMap[DOWN] = value;
+			else if (event.key.code == sf::Keyboard::Q)
+				this->player[1]->inputMap[LEFT] = value;
+			else if (event.key.code == sf::Keyboard::D)
+				this->player[1]->inputMap[RIGHT] = value;
 }
 
 void Event::menuEvent(int & pos, bool & push, bool & refresh)
