@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameEngine::GameEngine(void)
-	: map(), graphic(window, map.map, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player)
+	: map(), graphic(window, map.map, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player), ref(player, loopTime)
 {
 	sound.musicOFF();
 	sound.playMusic(sound.music);
@@ -44,7 +44,9 @@ void GameEngine::run()
 			globalTimer = globalClock.getElapsedTime();
 			loopTime = globalTimer.asSeconds();
 			globalClock.restart();
-
+			ref.playerMove();
+			if (ref.killPlayer() == true)
+				state = MENU;
 
 
 

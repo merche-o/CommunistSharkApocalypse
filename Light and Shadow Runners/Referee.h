@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Event.h"
 #include "PhysicsEngine.h"
+#include "Settings.h"
 //#include <vector>
 
 class Referee
@@ -34,5 +35,6 @@ public:
 	void changeSide(Player *src);
 	void moveMapLine(Player *src);
 	bool killPlayer();
+	void reducePlayerSize(Player *src);
 };
 
