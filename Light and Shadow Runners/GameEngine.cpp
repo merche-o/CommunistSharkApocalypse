@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameEngine::GameEngine(void)
-	: map(), graphic(window, map.map, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player), ref(player, loopTime)
+	: map(), graphic(window, map.map, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player), ref(player, loopTime, map)
 {
 	sound.musicOFF();
 	sound.playMusic(sound.music);
@@ -11,11 +11,11 @@ GameEngine::GameEngine(void)
 	window.create(sf::VideoMode(Settings::WIDTH, Settings::HEIGHT), Settings::GAME_NAME);
 	window.setFramerateLimit(30);
 	
-	player.push_back(new Player(loopTime,1));
 	player.push_back(new Player(loopTime,2));
+	player.push_back(new Player(loopTime,1));
 	
 	state = MENU;
-	restart = false;
+	restart = false;  
 }
 
 

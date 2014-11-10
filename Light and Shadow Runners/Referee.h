@@ -4,18 +4,20 @@
 #include "Event.h"
 #include "PhysicsEngine.h"
 #include "Settings.h"
+#include "Map.h"
 //#include <vector>
 
 class Referee
 {
 private:
+	Map &map;
 	PhysicsEngine physics;
 	std::vector<Player *> &playerList;
 	float &loopTime;
 	std::map<e_input, void(Referee:: *)(Player *src)> actionManager;
 	std::map<e_input, void(Referee:: *)(Player *src)> releaseActionManager;
 public:
-	Referee(std::vector<Player *> &PlayerList, float &LoopTime);
+	Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &map);
 	~Referee(void);
 	void playerMove();
 

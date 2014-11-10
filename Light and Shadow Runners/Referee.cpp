@@ -1,8 +1,8 @@
 #include "Referee.h"
 #include <iostream>
 
-Referee::Referee(std::vector<Player *> &PlayerList, float &LoopTime)
-	:playerList(PlayerList), loopTime(LoopTime)
+Referee::Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &Map)
+	:playerList(PlayerList), loopTime(LoopTime), map(Map)
 {
 	actionManager[UP] = &Referee::moveUp;
 	actionManager[DOWN] = &Referee::moveDown;
@@ -37,14 +37,14 @@ void Referee::playerMove()
 
 void Referee::moveLeft(Player *src)
 {
-	if(src->home == true && src->color == WHITE);
-		//src->changeSide(src);
+	if(src->home == true && src->color == WHITE)
+		this->changeSide(src);
 	else if (src->color == WHITE && src->home == false)
 		jump(src);
 	else if (src->color == BLACK && src->home == true)
 		jump(src);
-	else if (src->color == BLACK && src->home == false);
-		//src->changeSide(src)
+	else if (src->color == BLACK && src->home == false)
+		this->changeSide(src);
 	
 	return;
 }
@@ -54,10 +54,10 @@ void Referee::moveRight(Player *src)
 {
 	if(src->home == true && src->color == WHITE)
 		jump(src);
-	else if (src->color == WHITE && src->home == false);
-		//src->changeSide(src);
-	else if (src->color == BLACK && src->home == true);
-	//src->changeSide(src);
+	else if (src->color == WHITE && src->home == false)
+		this->changeSide(src);
+	else if (src->color == BLACK && src->home == true)
+		this->changeSide(src);
 	else if (src->color == BLACK && src->home == false)
 		jump(src);
 	return;
@@ -137,15 +137,30 @@ void Referee::jump(Player *src)
 		if (src->color == WHITE)
 			std::cout << "JUMP WHITE" <<std::endl;
 		else
-				std::cout << "JUMP BLACK" <<std::endl;
+			std::cout << "JUMP BLACK" <<std::endl;
 }
 
 void Referee::changeSide(Player *src)
-		{
-		if (src->home == true)
-			src->home = false;
-		else
-			src->home = true;
+{
+	if (src->home == true)
+	{
+		if( src->color == BLACK)
+			src->x = Settings::WIDTH - (src->x + src->width);
+		if (src->color == WHITE)
+			src->x = (src->x - Settings::WIDTH) + src->width +10;
+
+		src->home = false;
+	}
+	else if (src->home == false)
+	{
+		if (src->color == BLACK)
+			src->x = (src->x - Settings::WIDTH) + src->width +10;
+		if (src->color == WHITE)
+			src->x = Settings::WIDTH - (src->x + src->width);
+
+		src->home = true;
+	}
+			
 }
 
 void Referee::reducePlayerSize(Player *src)
