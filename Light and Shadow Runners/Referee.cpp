@@ -13,6 +13,7 @@ Referee::Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &Map)
 	releaseActionManager[DOWN] = &Referee::RmoveDown;
 	releaseActionManager[LEFT] = &Referee::RmoveLeft;
 	releaseActionManager[RIGHT] = &Referee::RmoveRight;
+	correctWidth = 0;
 }
 
 
@@ -145,19 +146,17 @@ void Referee::changeSide(Player *src)
 	if (src->home == true)
 	{
 		if( src->color == BLACK)
-			src->x = Settings::WIDTH - (src->x + src->width);
+			src->x = Settings::WIDTH - (src->x + src->width) ;
 		if (src->color == WHITE)
-			src->x = (src->x - Settings::WIDTH) + src->width +10;
-
+			src->x = -(src->x+ src->width - (Settings::WIDTH + correctWidth));
 		src->home = false;
 	}
 	else if (src->home == false)
 	{
 		if (src->color == BLACK)
-			src->x = (src->x - Settings::WIDTH) + src->width +10;
+			src->x = -(src->x + src->width - Settings::WIDTH);
 		if (src->color == WHITE)
-			src->x = Settings::WIDTH - (src->x + src->width);
-
+			src->x = Settings::WIDTH +   correctWidth  - (src->x +src->width );
 		src->home = true;
 	}
 			
@@ -167,6 +166,15 @@ void Referee::reducePlayerSize(Player *src)
 {
 	//have to change the ratio of reduce to match a proper gameplay
 	if (src->home == false)
-		src->scale -= 0.1 * loopTime;
+		{	
+			src->scale -= 0.1 * loopTime;
+			if (src->color == WHITE)
+				{
+					correctWidth +=  0.1 * loopTime * src->width;
+					src->x += 0.1 * loopTime * src->width;
+					
+				}
+		}
+		
 }
 
