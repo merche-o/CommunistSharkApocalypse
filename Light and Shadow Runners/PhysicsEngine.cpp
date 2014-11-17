@@ -36,7 +36,7 @@ void	PhysicsEngine::applyGravity(Player & player)
 #pragma region Collisions
 void	PhysicsEngine::collide(Player & player)
 {
-	if (
+//	if (
 }
 
 int		PhysicsEngine::getMapHeight(Player & player)

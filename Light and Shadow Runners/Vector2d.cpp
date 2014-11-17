@@ -51,7 +51,7 @@ float	Vector2d::getNorm()
 }
 
 void	Vector2d::normalize()
-{00
+{
 	float norm = this->getNorm();
 	this->x /= norm;
 	this->y /= norm;

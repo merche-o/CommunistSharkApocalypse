@@ -3,7 +3,7 @@
 
 
 Referee::Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &Map)
-	:playerList(PlayerList), loopTime(LoopTime), physics(Map, PlayerList)
+	:playerList(PlayerList), loopTime(LoopTime), physics(Map, PlayerList), map(Map)
 {
 	actionManager[UP] = &Referee::moveUp;
 	actionManager[DOWN] = &Referee::moveDown;
