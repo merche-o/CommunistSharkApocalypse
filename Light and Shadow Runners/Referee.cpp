@@ -1,8 +1,8 @@
 #include "Referee.h"
 
 
-Referee::Referee(std::vector<Player *> &PlayerList, float &LoopTime)
-	:playerList(PlayerList), loopTime(LoopTime)
+Referee::Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &Map)
+	:playerList(PlayerList), loopTime(LoopTime), physics(Map, PlayerList)
 {
 	actionManager[UP] = &Referee::moveUp;
 	actionManager[DOWN] = &Referee::moveDown;
@@ -22,6 +22,7 @@ Referee::~Referee(void)
 
 void Referee::playerMove()
 {
+	physics.Update();
 	for (int i = 0; i < playerList.size(); i++)
 		{
 			for (int i2 = 0; i2 < this->playerList[i]->inputMap.size(); i2++)

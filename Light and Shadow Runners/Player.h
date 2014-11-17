@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 #include <vector>
 #include "Settings.h"
+#include "Vector2d.h"
 
 enum e_dir
 {
@@ -31,6 +32,10 @@ public:
 	std::vector<bool> inputMap;
 	bool home;
 	e_color color;
+	e_color side;
+	Vector2d speedVect;
+	Vector2d accelVect;
+	int accelCount;
 private:
 	
 public:
