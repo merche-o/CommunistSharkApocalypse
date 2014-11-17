@@ -16,7 +16,7 @@ Player::Player(float &LoopTime, int num)
 	height = 50;
 	scale = 1.0;
 	home = true;
-	speed = 5;
+	speed = 100;
 	if (num == 1)
 	{
 		color = BLACK;

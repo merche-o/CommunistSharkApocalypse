@@ -1,4 +1,5 @@
 #include "Event.h"
+#include <iostream>
 
 
 Event::Event(sf::Window & w, std::vector<Player*> & p)
@@ -21,13 +22,13 @@ void Event::checkEvent()
 		else if (event.type == sf::Event::KeyPressed)
 		{
 			setPlayer1Key(push);
-			setPlayer2Key(push);
+		//	setPlayer2Key(push);
 		}
 		else if (event.type == sf::Event::KeyReleased)
 		{
 			push = false;
 			setPlayer1Key(push);
-			setPlayer2Key(push);
+		//	setPlayer2Key(push);
 		}
     }
 }
@@ -46,10 +47,7 @@ void Event::setPlayer1Key(bool value)
 				this->player[0]->inputMap[LEFT] = value;
 			else if (event.key.code == sf::Keyboard::Right)
 				this->player[0]->inputMap[RIGHT] = value;
-}
-void Event::setPlayer2Key(bool value) 	{
-		
-			 if (event.key.code == sf::Keyboard::Z)
+			else if (event.key.code == sf::Keyboard::Z)
 				this->player[1]->inputMap[UP] = value;
 			else if (event.key.code == sf::Keyboard::S)
 				this->player[1]->inputMap[DOWN] = value;

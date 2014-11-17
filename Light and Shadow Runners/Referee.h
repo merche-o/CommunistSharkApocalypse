@@ -3,18 +3,24 @@
 #include "Player.h"
 #include "Event.h"
 #include "PhysicsEngine.h"
+#include "Settings.h"
+#include "Map.h"
 //#include <vector>
 
 class Referee
 {
 private:
+	Map &map;
 	PhysicsEngine physics;
 	std::vector<Player *> &playerList;
 	float &loopTime;
 	std::map<e_input, void(Referee:: *)(Player *src)> actionManager;
 	std::map<e_input, void(Referee:: *)(Player *src)> releaseActionManager;
+	float correctWidth;
 public:
+
 	Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &Map);
+
 	~Referee(void);
 	void playerMove();
 
@@ -34,5 +40,6 @@ public:
 	void changeSide(Player *src);
 	void moveMapLine(Player *src);
 	bool killPlayer();
+	void reducePlayerSize(Player *src);
 };
 

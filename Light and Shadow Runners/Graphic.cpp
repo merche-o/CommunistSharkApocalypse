@@ -29,6 +29,9 @@ void Graphic::drawMap()
 
 void Graphic::drawPlayer()
 {
-	loadPlayer(player[0]);
-	loadPlayer(player[1]);
+	
+	if (player[0] != NULL)
+		loadPlayer(player[0]);
+	if(player[1] != NULL)
+		loadPlayer(player[1]);
 }
