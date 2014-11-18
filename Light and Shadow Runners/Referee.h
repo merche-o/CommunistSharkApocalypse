@@ -18,7 +18,9 @@ private:
 	std::map<e_input, void(Referee:: *)(Player *src)> releaseActionManager;
 	float correctWidth;
 public:
-	Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &map);
+
+	Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &Map);
+
 	~Referee(void);
 	void playerMove();
 
