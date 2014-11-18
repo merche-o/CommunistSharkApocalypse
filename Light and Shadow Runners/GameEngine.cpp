@@ -25,6 +25,7 @@ GameEngine::~GameEngine(void)
 
 void GameEngine::run()
 {
+	int winner = 2;
     while (window.isOpen())
     {
 		if (state == MENU)
@@ -45,11 +46,15 @@ void GameEngine::run()
 			loopTime = globalTimer.asSeconds();
 			globalClock.restart();
 			ref.playerMove();
-			if (ref.killPlayer() == true)
+			
+			winner = ref.killPlayer();
+			
+			if (winner != -1)
+			{
+				std::cout << "Player " << winner +1  <<  " win !" << std::endl;
 				state = MENU;
 
-
-
+			}
 			event.checkEvent();
 
 			window.clear();
