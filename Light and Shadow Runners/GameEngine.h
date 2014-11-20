@@ -11,6 +11,7 @@
 #include "SoundEngine.h"
 #include "Map.h"
 #include "Referee.h"
+#include "PhysicsEngine.h"
 
 enum e_state
 {
@@ -30,6 +31,7 @@ private:
 
 	Graphic graphic;
 	SoundEngine sound;
+	PhysicsEngine physicEngine;
 	Referee ref;
 	std::vector<Player*> player;
 	Event event;

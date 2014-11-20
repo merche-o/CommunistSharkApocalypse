@@ -26,13 +26,14 @@ void Referee::playerMove()
 {
 	physics.Update();
 	for (int i = 0; i < playerList.size(); i++)
-		{reducePlayerSize(playerList[i]);
+		{
+			reducePlayerSize(playerList[i]);
 			for (int i2 = 0; i2 < this->playerList[i]->inputMap.size(); i2++)
 			{
-			if (this->playerList[i]->inputMap[i2] == true)
-				(this->*(actionManager[(e_input)i2]))(playerList[i]);
-			else
-				(this->*(releaseActionManager[(e_input)i2]))(playerList[i]);
+				if (this->playerList[i]->inputMap[i2] == true)
+					(this->*(actionManager[(e_input)i2]))(playerList[i]);
+				else
+					(this->*(releaseActionManager[(e_input)i2]))(playerList[i]);
 			}	
 		}
 }
@@ -85,12 +86,22 @@ void Referee::moveDown(Player *src)
 
 void Referee::RmoveLeft(Player *src)
 {
+	if (src->color == WHITE && src->home == false)
+		Rjump(src);
+	if (src->color == BLACK && src->home == true)
+		Rjump(src);
+	
 	return;
 }
 
 
 void Referee::RmoveRight(Player *src)
 {
+	if(src->home == true && src->color == WHITE)
+		Rjump(src);
+	else if (src->color == BLACK && src->home == false)
+		Rjump(src);
+
 	return;
 }
 
@@ -136,11 +147,28 @@ bool Referee::killPlayer()
 }	
 
 void Referee::jump(Player *src)
-	{
-		if (src->color == WHITE)
-			std::cout << "JUMP WHITE" <<std::endl;
-		else
-			std::cout << "JUMP BLACK" <<std::endl;
+{
+		if (src->isJumping || src->onTheFloor)
+		{
+			if (src->currentJumpTime > src->maxJumpTime)
+			{
+				src->currentJumpTime = 0;
+				src->isJumping = false;
+			}
+			else
+			{
+				src->currentJumpTime += src->loopTime;
+				src->onTheFloor = false;
+				src->isJumping = true;
+				src->jumpStrength = src->initJumpStrength;
+			}
+		}
+			
+}
+
+void Referee::Rjump(Player *src)
+{
+	src->isJumping = false;
 }
 
 void Referee::changeSide(Player *src)
@@ -161,6 +189,10 @@ void Referee::changeSide(Player *src)
 			src->x = Settings::WIDTH +   correctWidth  - (src->x +src->width );
 		src->home = true;
 	}
+	if (src->side == BLACK)
+		src->side = WHITE;
+	else
+		src->side = BLACK;
 			
 }
 

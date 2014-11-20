@@ -33,9 +33,15 @@ public:
 	bool home;
 	e_color color;
 	e_color side;
-	Vector2d speedVect;
-	Vector2d accelVect;
-	int accelCount;
+	float jumpStrength;
+	float initJumpStrength;
+	float maxFallSpeed;
+	float fallSpeed;
+	float initFallSpeed;
+	float maxJumpTime;
+	float currentJumpTime;
+	bool isJumping;
+	bool onTheFloor;
 private:
 	
 public:

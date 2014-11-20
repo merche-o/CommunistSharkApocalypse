@@ -3,7 +3,7 @@
 #include	<vector>
 #include	<iterator>
 #include	"Settings.h"
-#include	"Vector2d.h";
+#include	"Vector2d.h"
 #include	"Map.h"
 #include	"Player.h"
 
@@ -25,8 +25,8 @@ public:
 	~PhysicsEngine(void);
 	void			Update(void);
 private:
-	void			applyGravity(Player &);
-	void			collide(Player &);
-	int				getMapHeight(Player &);
+	void			applyGravity(Player*, float&, float&, int);
+	void			applyJump(Player*, float&, float&);
+	int				getMapHeight(Player*);
 };
 

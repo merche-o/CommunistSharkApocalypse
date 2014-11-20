@@ -2,7 +2,7 @@
 
 
 Player::Player(float &LoopTime, int num)
-	: loopTime(LoopTime), speedVect(0, 0), accelVect(0, 0), accelCount(0)
+	: loopTime(LoopTime)
 {
 
 	int i = 0;
@@ -16,7 +16,16 @@ Player::Player(float &LoopTime, int num)
 	height = 50;
 	scale = 1.0;
 	home = true;
-	speed = 100;
+	speed = 200;
+	jumpStrength = 0;
+	initJumpStrength = 300;
+	isJumping = false;
+	onTheFloor = false;
+	fallSpeed = 40;
+	initFallSpeed = 40;
+	maxFallSpeed = 300;
+	maxJumpTime = 1.5;
+	currentJumpTime = 0;
 	if (num == 1)
 	{
 		color = BLACK;

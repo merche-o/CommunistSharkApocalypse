@@ -37,6 +37,7 @@ public:
 
 	//GamePlay
 	void jump(Player *src);
+	void Rjump(Player *src);
 	void changeSide(Player *src);
 	void moveMapLine(Player *src);
 	bool killPlayer();
