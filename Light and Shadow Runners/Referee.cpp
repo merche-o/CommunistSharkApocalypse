@@ -37,6 +37,11 @@ void Referee::playerMove()
 		}
 }
 
+void Referee::getCoins(Player *src)
+{
+	//maybe Have to change value
+	src->scale += 1 * loopTime;
+}
 
 void Referee::moveLeft(Player *src)
 {

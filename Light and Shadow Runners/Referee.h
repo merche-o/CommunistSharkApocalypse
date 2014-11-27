@@ -41,5 +41,6 @@ public:
 	void moveMapLine(Player *src);
 	int killPlayer();
 	void reducePlayerSize(Player *src);
+	void getCoins(Player *src);
 };
 

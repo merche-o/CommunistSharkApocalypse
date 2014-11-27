@@ -11,6 +11,7 @@
 #include "SoundEngine.h"
 #include "Map.h"
 #include "Star.h"
+#include "Referee.h"
 
 enum e_state
 {
@@ -27,7 +28,7 @@ private:
 	Parameters parameters;
 	GameMenu menu;
 	bool restart;
-
+	Referee ref;
 	Graphic graphic;
 	SoundEngine sound;
 	std::vector<Player*> player;
