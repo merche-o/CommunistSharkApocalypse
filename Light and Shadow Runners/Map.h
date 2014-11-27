@@ -7,10 +7,15 @@
 class Map
 {
 public:
-std::map<std::pair<e_color, int>, Rect*> map;
+	std::map<std::pair<e_color, int>, Rect*> map;
+	float speed;
+	int plus;
 
 public:
 	Map(void);
 	~Map(void);
+
+	void generator();
+	void scroll();
 };
 

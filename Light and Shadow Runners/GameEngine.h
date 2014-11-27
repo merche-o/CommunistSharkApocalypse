@@ -10,7 +10,7 @@
 #include "Event.h"
 #include "SoundEngine.h"
 #include "Map.h"
-#include "Referee.h"
+#include "Star.h"
 
 enum e_state
 {
@@ -30,8 +30,9 @@ private:
 
 	Graphic graphic;
 	SoundEngine sound;
-	Referee ref;
 	std::vector<Player*> player;
+	std::vector<Star*> stars;
+	float popStar;
 	Event event;
 	
 	sf::Clock globalClock;
@@ -46,5 +47,6 @@ public:
 	~GameEngine(void);
 
 	void run();
+	void starsGenerator();
 };
 

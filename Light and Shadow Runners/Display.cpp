@@ -23,13 +23,23 @@ void Display::loadImage(float x, float y, sf::Texture & Texture, int transparenc
 	win.draw(Sprite);
 }
 
+void Display::loadStar(Star* star)
+{
+	sf::Sprite		Sprite;
+
+	Sprite.setTexture(star->texture);
+	Sprite.setTextureRect(sf::IntRect(star->anim * 16, 0, 16, 16));
+	Sprite.setPosition(star->x, star->y);
+	win.draw(Sprite);
+}
+
 void Display::loadPlayer(Player* p)
 {
 	sf::RectangleShape rect;
 
 	if (p->color == BLACK)
 	{
-		rect.setSize(sf::Vector2f(p->width * p->scale, p->height *p->scale));
+		rect.setSize(sf::Vector2f(p->width * p->scale, p->height * p->scale));
 		rect.setFillColor(sf::Color(0, 0, 0));
 		if (p->scale == 1.0)
 			rect.setOutlineThickness(3);
@@ -40,7 +50,7 @@ void Display::loadPlayer(Player* p)
 	}
 	else if (p->color == WHITE)
 	{
-		rect.setSize(sf::Vector2f(p->width * p->scale, p->height *p->scale));
+		rect.setSize(sf::Vector2f(p->width * p->scale, p->height * p->scale));
 		rect.setFillColor(sf::Color(255, 255, 255));
 		if (p->scale == 1.0)
 			rect.setOutlineThickness(3);
@@ -100,6 +110,16 @@ void Display::drawSquare(float x, float y, int width, int height, int outline, i
 	rect.setFillColor(sf::Color(r, g, b, a));
 	rect.setOutlineThickness(outline);
 	rect.setPosition(x, y);
+	win.draw(rect);
+}
+
+void Display::middleLine(int line)
+{
+	sf::RectangleShape rect;
+
+	rect.setSize(sf::Vector2f(4, Settings::HEIGHT));
+	rect.setFillColor(sf::Color(255, 0, 0, 100));
+	rect.setPosition(line - 2, 0);
 	win.draw(rect);
 }
 
