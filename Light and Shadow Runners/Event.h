@@ -4,7 +4,6 @@
 #include "SFML\Graphics.hpp"
 #include "Player.h"
 
-
 enum e_input {
 	UP,
 	DOWN,

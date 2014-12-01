@@ -65,14 +65,11 @@ void GameMenu::displayCurrentMenu()
 {
 	for (int i = 0; i < sizeTextMenu[currentState]; ++i)
 	{
-		loadText(textMenu[std::make_pair(currentState, i)]->x, 
+		loadSplitText(textMenu[std::make_pair(currentState, i)]->x, 
 				textMenu[std::make_pair(currentState, i)]->y, 
 				font, 
 				textMenu[std::make_pair(currentState, i)]->text, 
-				textMenu[std::make_pair(currentState, i)]->size, 
-				textMenu[std::make_pair(currentState, i)]->color.r, 
-				textMenu[std::make_pair(currentState, i)]->color.g, 
-				textMenu[std::make_pair(currentState, i)]->color.b);
+				textMenu[std::make_pair(currentState, i)]->size);
 	}
 
 	for (int i = 0; i < sizeKeyTextMenu[currentState]; ++i)

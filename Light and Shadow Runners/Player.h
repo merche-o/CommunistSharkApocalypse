@@ -1,8 +1,8 @@
 #pragma once
 
-#include <SFML\Graphics.hpp>
 #include <vector>
 #include "Settings.h"
+#include <SFML\Graphics.hpp>
 #include "Vector2d.h"
 
 enum e_dir
@@ -17,22 +17,21 @@ enum e_act
 	JUMP
 };
 
-
-
 class Player
 {
 public:
 	float x;
 	float y;
-	float &loopTime;
 	int width;
 	int height;
 	float maxSpeed;
 	float speedScale;
 	float scale;
-	std::vector<bool> inputMap;
-	bool home;
 	e_color color;
+	bool home;
+	float &loopTime;
+	float speed;
+	std::vector<bool> inputMap;
 	e_color side;
 	float jumpStrength;
 	float initJumpStrength;
@@ -48,7 +47,7 @@ public:
 	bool collideUp;
 	bool collideDown;
 private:
-	
+
 public:
 	Player(float &loopTime, int num);
 	~Player(void);

@@ -4,14 +4,12 @@
 Player::Player(float &LoopTime, int num)
 	: loopTime(LoopTime)
 {
-
 	int i = 0;
 	while (i < 4)
 		{
 			inputMap.push_back(false);
 			++i;
 		}
-	
 	width = 50;
 	height = 50;
 	scale = 1.0;

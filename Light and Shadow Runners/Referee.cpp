@@ -38,6 +38,11 @@ void Referee::playerMove()
 		}
 }
 
+void Referee::getCoins(Player *src)
+{
+	//maybe Have to change value
+	src->scale += 1 * loopTime;
+}
 
 void Referee::moveLeft(Player *src)
 {
@@ -133,24 +138,32 @@ void Referee::moveMapLine(Player *src)
 	return;		   
 }				   
 
-bool Referee::killPlayer()
+int Referee::killPlayer()
 {
 	for (int i = 0; i < playerList.size(); i++)
 		{
-			if (playerList[i]->scale <= 0.1)
+			if (playerList[i]->scale <= 0.1){
 				playerList.erase(playerList.begin() + i);
-			else if (playerList[i]->y  > Settings::HEIGHT)
+				return i;
+			}
+			else if (playerList[i]->y  > Settings::HEIGHT){
 				playerList.erase(playerList.begin() + i);
-			else if (i == 0 && playerList[i]->x + playerList[i]->width > Settings::WIDTH)
+				return i;
+			}
+				
+			else if (i == 0 && playerList[i]->x + playerList[i]->width > Settings::WIDTH){
 				playerList.erase(playerList.begin() + i);
-			else if (i == 1 && playerList[i]->x > Settings::WIDTH)
+				return i;	
+			}
+			else if (i == 1 && playerList[i]->x > Settings::WIDTH){
 				playerList.erase(playerList.begin() + i);
-
+				return i;
+			}
 		}
-	if (playerList.size() < 2)
-			return true;
-	else
-		return false;
+
+	
+
+		return -1;
 }	
 
 void Referee::jump(Player *src)

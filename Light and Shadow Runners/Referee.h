@@ -39,7 +39,8 @@ public:
 	void Rjump(Player *src);
 	void changeSide(Player *src);
 	void moveMapLine(Player *src);
-	bool killPlayer();
+	int killPlayer();
 	void reducePlayerSize(Player *src);
+	void getCoins(Player *src);
 };
 

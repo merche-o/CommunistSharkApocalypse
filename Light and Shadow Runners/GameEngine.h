@@ -10,6 +10,7 @@
 #include "Event.h"
 #include "SoundEngine.h"
 #include "Map.h"
+#include "Star.h"
 #include "Referee.h"
 #include "PhysicsEngine.h"
 
@@ -28,12 +29,13 @@ private:
 	Parameters parameters;
 	GameMenu menu;
 	bool restart;
-
+	Referee ref;
 	Graphic graphic;
 	SoundEngine sound;
 	PhysicsEngine physicEngine;
-	Referee ref;
 	std::vector<Player*> player;
+	std::vector<Star*> stars;
+	float popStar;
 	Event event;
 	
 	sf::Clock globalClock;
@@ -48,5 +50,6 @@ public:
 	~GameEngine(void);
 
 	void run();
+	void starsGenerator();
 };
 

@@ -1,5 +1,4 @@
 #include "Event.h"
-#include <iostream>
 
 
 Event::Event(sf::Window & w, std::vector<Player*> & p)
@@ -22,18 +21,15 @@ void Event::checkEvent()
 		else if (event.type == sf::Event::KeyPressed)
 		{
 			setPlayer1Key(push);
-		//	setPlayer2Key(push);
+		
 		}
 		else if (event.type == sf::Event::KeyReleased)
 		{
 			push = false;
 			setPlayer1Key(push);
-		//	setPlayer2Key(push);
 		}
     }
 }
- 
-//have to finish player inputKey
 
 void Event::setPlayer1Key(bool value)
 	{
