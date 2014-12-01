@@ -3,7 +3,7 @@
 
 
 Referee::Referee(std::vector<Player *> &PlayerList, float &LoopTime, Map &Map)
-	:playerList(PlayerList), loopTime(LoopTime), physics(Map, PlayerList), map(Map)
+	:playerList(PlayerList), loopTime(LoopTime), map(Map)
 {
 	actionManager[UP] = &Referee::moveUp;
 	actionManager[DOWN] = &Referee::moveDown;
@@ -24,9 +24,9 @@ Referee::~Referee(void)
 
 void Referee::playerMove()
 {
-	physics.Update();
 	for (int i = 0; i < playerList.size(); i++)
 		{
+			playerList[i]->nextFrameY = playerList[i]->y + (playerList[i]->maxSpeed * playerList[i]->speedScale)  * this->loopTime;
 			reducePlayerSize(playerList[i]);
 			for (int i2 = 0; i2 < this->playerList[i]->inputMap.size(); i2++)
 			{
@@ -69,12 +69,19 @@ void Referee::moveRight(Player *src)
 
 void Referee::moveUp(Player *src)
 {
-	src->y -= src->speed  * this->loopTime;
+	src->speedScale -= 0.25 * src->scale;
+	src->speedScale *= 1.15;
+	if (src->speedScale < -1)
+		src->speedScale = -1;
 	return;
 }
 
 void Referee::moveDown(Player *src)
-{	src->y += src->speed  * this->loopTime;
+{
+	src->speedScale += 0.25 * src->scale;
+	src->speedScale *= 1.15;
+	if (src->speedScale > 1)
+		src->speedScale = 1;
 	return;
 	   
 }				   
@@ -148,7 +155,20 @@ bool Referee::killPlayer()
 
 void Referee::jump(Player *src)
 {
-		if (src->isJumping || src->onTheFloor)
+	if ((src->collideUp || src->collideDown) && src->JumpIsReleased && !src->onTheFloor)
+	{
+		if (src->jumpStrength < 1000)
+			src->jumpStrength = 1000;
+		src->speedScale = 1 * src->scale + 0.1;
+		if (src->speedScale > 1)
+			src->speedScale = 1;
+		if (src->collideDown)
+			src->speedScale *= -1;
+		src->fallSpeed = src->initFallSpeed;
+	}
+
+
+	if (src->isJumping || (src->onTheFloor && src->JumpIsReleased))
 		{
 			if (src->currentJumpTime > src->maxJumpTime)
 			{
@@ -163,12 +183,13 @@ void Referee::jump(Player *src)
 				src->jumpStrength = src->initJumpStrength;
 			}
 		}
-			
+	src->JumpIsReleased = false;
 }
 
 void Referee::Rjump(Player *src)
 {
 	src->isJumping = false;
+	src->JumpIsReleased = true;
 }
 
 void Referee::changeSide(Player *src)
@@ -186,7 +207,7 @@ void Referee::changeSide(Player *src)
 		if (src->color == BLACK)
 			src->x = -(src->x + src->width - Settings::WIDTH);
 		if (src->color == WHITE)
-			src->x = Settings::WIDTH +   correctWidth  - (src->x +src->width );
+			src->x = Settings::WIDTH +   correctWidth  - (src->x +src->width);
 		src->home = true;
 	}
 	if (src->side == BLACK)

@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameEngine::GameEngine(void)
-	: map(), graphic(window, map.map, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player), ref(player, loopTime, map)
+	: map(), graphic(window, map.map, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player), ref(player, loopTime, map), physicEngine(map, player)
 {
 	sound.musicOFF();
 	sound.playMusic(sound.music);
@@ -49,7 +49,7 @@ void GameEngine::run()
 				state = MENU;
 
 
-
+			physicEngine.Update();
 			event.checkEvent();
 
 			window.clear();

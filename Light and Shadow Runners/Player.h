@@ -27,7 +27,8 @@ public:
 	float &loopTime;
 	int width;
 	int height;
-	float speed;
+	float maxSpeed;
+	float speedScale;
 	float scale;
 	std::vector<bool> inputMap;
 	bool home;
@@ -41,11 +42,16 @@ public:
 	float maxJumpTime;
 	float currentJumpTime;
 	bool isJumping;
+	bool JumpIsReleased;
 	bool onTheFloor;
+	float nextFrameY;
+	bool collideUp;
+	bool collideDown;
 private:
 	
 public:
 	Player(float &loopTime, int num);
 	~Player(void);
+	int getWidth(void);
 };
 

@@ -25,8 +25,10 @@ public:
 	~PhysicsEngine(void);
 	void			Update(void);
 private:
-	void			applyGravity(Player*, float&, float&, int);
+	void			applyGravity(Player*, float&, float&);
 	void			applyJump(Player*, float&, float&);
-	int				getMapHeight(Player*);
+	void			collideWalls(Player*, float&, float&);
+	int				mapHeightForPlayer(Player*);
+	int				mapHeightForPoint(float, float, e_color);
 };
 
