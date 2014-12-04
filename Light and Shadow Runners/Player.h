@@ -24,6 +24,8 @@ public:
 	float y;
 	int width;
 	int height;
+	float maxSpeed;
+	float speedScale;
 	float scale;
 	e_color color;
 	bool home;
@@ -33,13 +35,24 @@ public:
 	int inDash;
 	std::vector<bool> inputMap;
 	e_color side;
-	Vector2d speedVect;
-	Vector2d accelVect;
-	int accelCount;
+	float jumpStrength;
+	float initJumpStrength;
+	float maxFallSpeed;
+	float fallSpeed;
+	float initFallSpeed;
+	float maxJumpTime;
+	float currentJumpTime;
+	bool isJumping;
+	bool JumpIsReleased;
+	bool onTheFloor;
+	float nextFrameY;
+	bool collideUp;
+	bool collideDown;
 private:
 
 public:
 	Player(float &loopTime, int num);
 	~Player(void);
+	int getWidth(void);
 };
 

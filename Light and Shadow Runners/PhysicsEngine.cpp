@@ -1,4 +1,5 @@
 #include "PhysicsEngine.h"
+#include <iostream>
 
 
 PhysicsEngine::PhysicsEngine(Map & Map, std::vector<Player*> & Players)
@@ -14,49 +15,184 @@ PhysicsEngine::~PhysicsEngine(void)
 void	PhysicsEngine::Update(void)
 {
 	Player * player;
+	float x;
+	float y;
 	for(int i = 0; i < players.size(); i++)
 	{
 		player = players.at(i);
-		applyGravity(*player);
-		collide(*player);
+		x = player->x;
+		y = player->nextFrameY;
+		player->collideDown = false;
+		player->collideUp = false;
+		/*if (player->color == BLACK)
+			std::cout << player->fallSpeed << std::endl;*/
+		if (player->jumpStrength <= 0)
+			applyGravity(player, x, y);
+		else
+			applyJump(player, x, y);
+		collideWalls(player, x, y);
+		player->x = x;
+		player->y = y;
+		player->nextFrameY = y;
+		if (player->onTheFloor)
+			player->speedScale *= 0.8;
+		else
+			player->speedScale *= 0.85;
 	}
 }
 
-#pragma region Forces
-void	PhysicsEngine::applyGravity(Player & player)
+void	PhysicsEngine::applyGravity(Player * player, float & x, float & y)
 {
-	if (player.side == e_color::BLACK)
-		player.accelVect.add(9.81 * (SCALE), 0);
-	else
-		player.accelVect.add(-9.81 * (SCALE), 0);
-	player.accelCount++;
-}
-#pragma endregion
+	int mapHeight = mapHeightForPlayer(player);
 
-#pragma region Collisions
-void	PhysicsEngine::collide(Player & player)
-{
-//	if (
-}
-
-int		PhysicsEngine::getMapHeight(Player & player)
-{
-	int height = 480;
-	bool tmp = false;
-	for ( mapIterator i = map.map.begin(); i != map.map.end(); i++)
+	if (player->side == e_color::BLACK && x + player->getWidth() != mapHeight)
 	{
-		if (i->first.first == e_color::BLACK)
-		{
-			if (!tmp && (i->second->y + i->second->height > player.y))
-				height = i->second->width;
+		x += player->fallSpeed * player->loopTime * player->scale;
+		if (x + player->getWidth() + 1 > mapHeight)
+			x = mapHeight - player->getWidth() - 1;
+		player->fallSpeed *= 1.1;
+	}
+	else if (player->side == e_color::WHITE && x - 1 != mapHeight)
+	{
+		std::cout << mapHeight << std::endl;
+		x -= player->fallSpeed * player->loopTime * player->scale;
+		if (x - 1 < mapHeight)
+			x = mapHeight + 1;
+		player->fallSpeed *= 1.1;
+
+	}
+	else if (player->side == e_color::WHITE)
+	{
+		std::cout << mapHeight << std::endl;
+		std::cout << "no gravity" << std::endl;
+	}
+	if (player->fallSpeed > player->maxFallSpeed /** player->scale*/)
+		player->fallSpeed = player->maxFallSpeed /** player->scale*/;
+	if (((player->side == e_color::WHITE && x - 1 == mapHeight) ||
+		(player->side == e_color::BLACK && x + player->getWidth() + 1 == mapHeight)))
+	{
+		player->onTheFloor = true;
+		player->fallSpeed = player->initFallSpeed;
+	}
+}
+
+void	PhysicsEngine::applyJump(Player * player, float & x, float & y)
+{
+	if (player->side == e_color::BLACK)
+	{
+		x -= player->jumpStrength * player->loopTime * player->scale;
+	}
+	else
+	{
+		x += player->jumpStrength * player->loopTime * player->scale;
+	}
+	player->jumpStrength *= 0.85;
+
+	if (player->jumpStrength < 80)
+		player->jumpStrength = 0;
+}
+
+
+int		PhysicsEngine::mapHeightForPlayer(Player * player)
+{
+	int height1 = mapHeightForPoint(player->x, player->y, player->side);
+	int height2 = mapHeightForPoint(player->x, player->y + player->getWidth() - 1, player->side);
+
+	if (player->side == e_color::WHITE)
+	{
+		if (height1 > height2)
+			return (height1);
+		return (height2);
+	}
+	else if (height1 < height2)
+		return(height1);
+	return (height2);
+}
+
+int		PhysicsEngine::mapHeightForPoint(float x, float y, e_color side)
+{
+	int height;
+	bool tmp = false;
+	if (side == WHITE)
+		height = 0;
+	else
+		height = Settings::WIDTH;
+
+	for (int i = map.plus; i < map.map.size() / 2; ++i)
+	{
+		/*if (i > map.plus + 1 && 	mapIt->first.first == e_color::BLACK)
+		{*/
+		if (!tmp && (map.map[std::make_pair(BLACK, i)]->y >= y))
+			{
+				height = map.map[std::make_pair(BLACK, i)]->width;
+				tmp = true;
+			}
 			else if (tmp && 
-					(	(player.side == e_color::BLACK && i->second->width < height) || 
-						(player.side == e_color::WHITE && i->second->width > height)))
-				height = i->second->width;
-			if (i->second->y + i->second->height > player.y + player.height)
+					(	(side == e_color::BLACK && map.map[std::make_pair(BLACK, i)]->width < height) || 
+						(side == e_color::WHITE && map.map[std::make_pair(BLACK, i)]->width > height)))
+			{
+				height = map.map[std::make_pair(BLACK, i)]->width;
+			}
+			if (map.map[std::make_pair(BLACK, i)]->y + map.map[std::make_pair(BLACK, i)]->height > y)
+			{
 				break;
-		}
+			}
+		//}
 	}
 	return (height);
 }
-#pragma endregion
+
+
+
+void		PhysicsEngine::collideWalls(Player * player, float & x, float & y)
+{
+	int		newHeightX;
+	int		tmp;
+	int		newHeightY;
+
+	if (y < player->y)
+	{
+		newHeightX = mapHeightForPoint(x, player->y, player->side);
+		newHeightY = player->y;
+		for (int i = player->y; i >= y; --i)
+		{
+			tmp = mapHeightForPoint(x, i, player->side);
+			if ((player->side == WHITE && tmp > newHeightX) || (player->side == BLACK && tmp < newHeightX))
+			{
+				newHeightX = tmp;
+				newHeightY = i;
+			}
+		}
+		//std::cout << newHeightX << " " << newHeightY << " x = " << x << std::endl;
+		if ((player->side == WHITE && newHeightX > player->x && x < newHeightX) ||
+			(player->side == BLACK && newHeightX < (player->x + player->getWidth() - 1) && (x + player->getWidth() - 1) > newHeightX))
+		{
+			//std::cout << "collision !" << std::endl;
+			y = newHeightY + 1;
+			player->collideUp = true;
+
+		}
+	}
+	else if (y > player->y)
+	{
+		newHeightX = mapHeightForPoint(x, player->y + player->getWidth() - 1, player->side);
+		newHeightY = player->y + player->getWidth() - 1;
+		for (int i = player->y; i <= y; ++i)
+		{
+			tmp = mapHeightForPoint(x, i + player->getWidth() - 1, player->side);
+			if ((player->side == WHITE && tmp > newHeightX) || (player->side == BLACK && tmp < newHeightX))
+			{
+				newHeightX = tmp;
+				newHeightY = i;
+			}
+		}
+		//std::cout << "haut point de la map : " << newHeightX << " sa coordonnée en y : " << newHeightY << " x = " << x << " y = " << y << std::endl;
+		if ((player->side == WHITE && newHeightX > player->x && x < newHeightX) ||
+			(player->side == BLACK && newHeightX < (player->x + player->getWidth() - 1) && (x + player->getWidth() - 1) > newHeightX))
+		{
+			//std::cout << "collision ! nouvelle coordonnée en y = " << newHeightY - 2 << std::endl;
+			y = newHeightY - 2;
+			player->collideDown = true;
+		}
+	}
+}

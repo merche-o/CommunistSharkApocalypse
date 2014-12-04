@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Star.h"
 #include "Referee.h"
+#include "PhysicsEngine.h"
 
 enum e_state
 {
@@ -31,6 +32,7 @@ private:
 	Referee ref;
 	Graphic graphic;
 	SoundEngine sound;
+	PhysicsEngine physicEngine;
 	std::vector<Player*> player;
 	std::vector<Star*> stars;
 	float popStar;

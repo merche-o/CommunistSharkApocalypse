@@ -2,7 +2,7 @@
 
 
 Player::Player(float &LoopTime, int num)
-	: loopTime(LoopTime), speedVect(0, 0), accelVect(0, 0), accelCount(0)
+	: loopTime(LoopTime)
 {
 	int i = 0;
 	while (i < 4)
@@ -14,7 +14,20 @@ Player::Player(float &LoopTime, int num)
 	height = 50;
 	scale = 1.0;
 	home = true;
-	speed = 100;
+	maxSpeed = 500;
+	speedScale = 0;
+	jumpStrength = 0;
+	initJumpStrength = 900;
+	isJumping = false;
+	JumpIsReleased = true;
+	onTheFloor = false;
+	fallSpeed = 100;
+	initFallSpeed = 100;
+	maxFallSpeed = 900;
+	maxJumpTime = 0.1;
+	currentJumpTime = 0;
+	collideUp = false;
+	collideDown = false;
 	if (num == 1)
 	{
 		color = BLACK;
@@ -25,8 +38,9 @@ Player::Player(float &LoopTime, int num)
 	{
 		color = WHITE;
 		x = Settings::WIDTH - width - 10;
-		y = Settings::HEIGHT / 2;
+		y = Settings::HEIGHT / 2 - 25;
 	}
+	nextFrameY = y;
 	side = color;
 	inDash = 0;
 	tmpTime = 0;
@@ -35,5 +49,15 @@ Player::Player(float &LoopTime, int num)
 
 Player::~Player(void)
 {
+}
+
+int		Player::getWidth(void)
+{
+	int	size = this->width * this->scale;
+	if (this->scale == 1)
+		size += 6;
+	else
+		size += 2;
+	return (size);
 }
 

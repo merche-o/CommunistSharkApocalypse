@@ -11,7 +11,6 @@ class Referee
 {
 private:
 	Map &map;
-	PhysicsEngine physics;
 	std::vector<Player *> &playerList;
 	float &loopTime;
 	std::map<e_input, void(Referee:: *)(Player *src)> actionManager;
@@ -37,6 +36,7 @@ public:
 
 	//GamePlay
 	void jump(Player *src);
+	void Rjump(Player *src);
 	void changeSide(Player *src);
 	void moveMapLine(Player *src);
 	int killPlayer();
