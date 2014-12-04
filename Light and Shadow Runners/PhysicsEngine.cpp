@@ -26,7 +26,7 @@ void	PhysicsEngine::Update(void)
 		player->collideUp = false;
 		/*if (player->color == BLACK)
 			std::cout << player->fallSpeed << std::endl;*/
-		if (player->jumpStrength == 0)
+		if (player->jumpStrength <= 0)
 			applyGravity(player, x, y);
 		else
 			applyJump(player, x, y);
@@ -54,10 +54,17 @@ void	PhysicsEngine::applyGravity(Player * player, float & x, float & y)
 	}
 	else if (player->side == e_color::WHITE && x - 1 != mapHeight)
 	{
+		std::cout << mapHeight << std::endl;
 		x -= player->fallSpeed * player->loopTime * player->scale;
 		if (x - 1 < mapHeight)
 			x = mapHeight + 1;
 		player->fallSpeed *= 1.1;
+
+	}
+	else if (player->side == e_color::WHITE)
+	{
+		std::cout << mapHeight << std::endl;
+		std::cout << "no gravity" << std::endl;
 	}
 	if (player->fallSpeed > player->maxFallSpeed /** player->scale*/)
 		player->fallSpeed = player->maxFallSpeed /** player->scale*/;
@@ -104,26 +111,33 @@ int		PhysicsEngine::mapHeightForPlayer(Player * player)
 
 int		PhysicsEngine::mapHeightForPoint(float x, float y, e_color side)
 {
-	int height = 480;
+	int height;
 	bool tmp = false;
-	for ( mapIterator mapIt = map.map.begin(); mapIt != map.map.end(); mapIt++)
+	if (side == WHITE)
+		height = 0;
+	else
+		height = Settings::WIDTH;
+
+	for (int i = map.plus; i < map.map.size() / 2; ++i)
 	{
-		if (mapIt->first.first == e_color::BLACK)
-		{
-			if (!tmp && (mapIt->second->y + mapIt->second->height >= y))
+		/*if (i > map.plus + 1 && 	mapIt->first.first == e_color::BLACK)
+		{*/
+		if (!tmp && (map.map[std::make_pair(BLACK, i)]->y >= y))
 			{
-				height = mapIt->second->width;
+				height = map.map[std::make_pair(BLACK, i)]->width;
 				tmp = true;
 			}
 			else if (tmp && 
-					(	(side == e_color::BLACK && mapIt->second->width < height) || 
-						(side == e_color::WHITE && mapIt->second->width > height)))
+					(	(side == e_color::BLACK && map.map[std::make_pair(BLACK, i)]->width < height) || 
+						(side == e_color::WHITE && map.map[std::make_pair(BLACK, i)]->width > height)))
 			{
-				height = mapIt->second->width;
+				height = map.map[std::make_pair(BLACK, i)]->width;
 			}
-			if (mapIt->second->y + mapIt->second->height > y)
+			if (map.map[std::make_pair(BLACK, i)]->y + map.map[std::make_pair(BLACK, i)]->height > y)
+			{
 				break;
-		}
+			}
+		//}
 	}
 	return (height);
 }

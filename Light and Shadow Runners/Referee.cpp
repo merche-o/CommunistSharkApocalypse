@@ -140,7 +140,7 @@ void Referee::moveMapLine(Player *src)
 
 int Referee::killPlayer()
 {
-	for (int i = 0; i < playerList.size(); i++)
+	/*for (int i = 0; i < playerList.size(); i++)
 		{
 			if (playerList[i]->scale <= 0.1){
 				playerList.erase(playerList.begin() + i);
@@ -159,7 +159,7 @@ int Referee::killPlayer()
 				playerList.erase(playerList.begin() + i);
 				return i;
 			}
-		}
+		}*/
 
 	
 

@@ -14,7 +14,7 @@ Player::Player(float &LoopTime, int num)
 	height = 50;
 	scale = 1.0;
 	home = true;
-	maxSpeed = 340;
+	maxSpeed = 500;
 	speedScale = 0;
 	jumpStrength = 0;
 	initJumpStrength = 900;
