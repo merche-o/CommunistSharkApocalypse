@@ -28,6 +28,8 @@ Player::Player(float &LoopTime, int num)
 		y = Settings::HEIGHT / 2;
 	}
 	side = color;
+	inDash = 0;
+	tmpTime = 0;
 }
 
 

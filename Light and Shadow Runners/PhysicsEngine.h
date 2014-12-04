@@ -3,7 +3,7 @@
 #include	<vector>
 #include	<iterator>
 #include	"Settings.h"
-#include	"Vector2d.h";
+#include	"Vector2d.h"
 #include	"Map.h"
 #include	"Player.h"
 

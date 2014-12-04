@@ -45,6 +45,7 @@ void Referee::getCoins(Player *src)
 
 void Referee::moveLeft(Player *src)
 {
+	
 	if(src->home == true && src->color == WHITE)
 		this->changeSide(src);
 	else if (src->color == WHITE && src->home == false)
@@ -53,13 +54,13 @@ void Referee::moveLeft(Player *src)
 		jump(src);
 	else if (src->color == BLACK && src->home == false)
 		this->changeSide(src);
-	
 	return;
 }
 
 
 void Referee::moveRight(Player *src)
 {
+	
 	if(src->home == true && src->color == WHITE)
 		jump(src);
 	else if (src->color == WHITE && src->home == false)
@@ -73,12 +74,27 @@ void Referee::moveRight(Player *src)
 
 void Referee::moveUp(Player *src)
 {
+	if (src->inDash == 0)
+		src->inDash = 1;
+	if (src->inDash == 2 && src->tmpTime < 0.2)
+		{
+			src->inDash = 3;
+			std::cout << "DASH UP" << std::endl;
+}
 	src->y -= src->speed  * this->loopTime;
 	return;
 }
 
 void Referee::moveDown(Player *src)
-{	src->y += src->speed  * this->loopTime;
+{	
+	if (src->inDash == 0)
+		src->inDash = -1;
+	if (src->inDash == -2 && src->tmpTime < 0.2)
+		{
+			src->inDash = -3;
+			std::cout << "DASH DOWN" << std::endl;
+			}
+	src->y += src->speed  * this->loopTime;
 	return;
 	   
 }				   
@@ -90,6 +106,8 @@ void Referee::moveDown(Player *src)
 
 void Referee::RmoveLeft(Player *src)
 {
+//	src->t
+	
 	return;
 }
 
@@ -100,12 +118,51 @@ void Referee::RmoveRight(Player *src)
 }
 
 void Referee::RmoveUp(Player *src)
-{	
+{	if(src->inDash == 1)
+	{
+		src->tmpTime = 0;
+		src->inDash = 2;
+		src->tmpTime += src->loopTime;
+	}
+	else if (src->inDash == 2)
+		{
+			src->tmpTime += loopTime;
+		}
+	 if (src->inDash > 0 && src->tmpTime > 0.5)
+		{
+			
+			src->inDash = 0;
+			src->tmpTime = 0;
+	}
+	 if (src->inDash == 0)
+		src->tmpTime = 0;
+	 if (src->inDash == 3)
+		src->tmpTime += src->loopTime;
+	
 	return;
 }
 
 void Referee::RmoveDown(Player *src)
-{				   
+{			
+	if(src->inDash == -1)
+	{
+		src->tmpTime = 0;
+		src->inDash = -2;
+		src->tmpTime += src->loopTime;
+	}
+	else if (src->inDash == -2)
+		{
+			src->tmpTime += loopTime;
+		}
+	 if (src->inDash < 0 && src->tmpTime > 0.5)
+		{
+			src->inDash = 0;
+			src->tmpTime = 0;
+	}
+	 if (src->inDash == 0)
+		src->tmpTime = 0;
+	 if (src->inDash == -3)
+		src->tmpTime += src->loopTime;
 	return;		   
 }				   
 

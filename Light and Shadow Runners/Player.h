@@ -29,6 +29,8 @@ public:
 	bool home;
 	float &loopTime;
 	float speed;
+		float tmpTime;
+	int inDash;
 	std::vector<bool> inputMap;
 	e_color side;
 	Vector2d speedVect;
