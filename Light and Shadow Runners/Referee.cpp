@@ -83,7 +83,7 @@ void Referee::moveUp(Player *src)
 			src->inDash = 3;
 			std::cout << "DASH UP" << std::endl;
 }
-	src->y -= src->speed  * this->loopTime;
+	
 
 	src->speedScale -= 0.25 * src->scale;
 	src->speedScale *= 1.15;
@@ -103,9 +103,8 @@ void Referee::moveDown(Player *src)
 			src->inDash = -3;
 			std::cout << "DASH DOWN" << std::endl;
 			}
-	src->y += src->speed  * this->loopTime;
+	
 
-{
 	src->speedScale += 0.25 * src->scale;
 	src->speedScale *= 1.15;
 	if (src->speedScale > 1)
