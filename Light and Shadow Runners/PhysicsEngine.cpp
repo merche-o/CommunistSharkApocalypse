@@ -32,7 +32,7 @@ void	PhysicsEngine::Update(void)
 			applyJump(player, x, y);
 		collideWalls(player, x, y);
 		player->x = x;
-		player->y = y;
+		player->y = y + map.speed;
 		player->nextFrameY = y;
 		if (player->onTheFloor)
 			player->speedScale *= 0.8;
@@ -54,17 +54,11 @@ void	PhysicsEngine::applyGravity(Player * player, float & x, float & y)
 	}
 	else if (player->side == e_color::WHITE && x - 1 != mapHeight)
 	{
-		std::cout << mapHeight << std::endl;
 		x -= player->fallSpeed * player->loopTime * player->scale;
 		if (x - 1 < mapHeight)
 			x = mapHeight + 1;
 		player->fallSpeed *= 1.1;
 
-	}
-	else if (player->side == e_color::WHITE)
-	{
-		std::cout << mapHeight << std::endl;
-		std::cout << "no gravity" << std::endl;
 	}
 	if (player->fallSpeed > player->maxFallSpeed /** player->scale*/)
 		player->fallSpeed = player->maxFallSpeed /** player->scale*/;
@@ -95,49 +89,49 @@ void	PhysicsEngine::applyJump(Player * player, float & x, float & y)
 
 int		PhysicsEngine::mapHeightForPlayer(Player * player)
 {
-	int height1 = mapHeightForPoint(player->x, player->y, player->side);
-	int height2 = mapHeightForPoint(player->x, player->y + player->getWidth() - 1, player->side);
-
-	if (player->side == e_color::WHITE)
-	{
-		if (height1 > height2)
-			return (height1);
-		return (height2);
-	}
-	else if (height1 < height2)
-		return(height1);
-	return (height2);
-}
-
-int		PhysicsEngine::mapHeightForPoint(float x, float y, e_color side)
-{
 	int height;
 	bool tmp = false;
-	if (side == WHITE)
+	if (player->side == WHITE)
 		height = 0;
 	else
 		height = Settings::WIDTH;
-
 	for (int i = map.plus; i < map.map.size() / 2; ++i)
 	{
-		/*if (i > map.plus + 1 && 	mapIt->first.first == e_color::BLACK)
-		{*/
-		if (!tmp && (map.map[std::make_pair(BLACK, i)]->y >= y))
+
+		if (!tmp && (map.map[std::make_pair(BLACK, i)]->y <= player->y + player->getWidth() - 1))
 			{
 				height = map.map[std::make_pair(BLACK, i)]->width;
 				tmp = true;
 			}
-			else if (tmp && 
-					(	(side == e_color::BLACK && map.map[std::make_pair(BLACK, i)]->width < height) || 
-						(side == e_color::WHITE && map.map[std::make_pair(BLACK, i)]->width > height)))
-			{
-				height = map.map[std::make_pair(BLACK, i)]->width;
-			}
-			if (map.map[std::make_pair(BLACK, i)]->y + map.map[std::make_pair(BLACK, i)]->height > y)
+		if (map.map[std::make_pair(BLACK, i)]->y + map.map[std::make_pair(BLACK, i)]->height < player->y)
 			{
 				break;
 			}
-		//}
+		if (tmp && 
+				(	(player->side == e_color::BLACK && map.map[std::make_pair(BLACK, i)]->width < height) || 
+					(player->side == e_color::WHITE && map.map[std::make_pair(BLACK, i)]->width > height)))
+			{
+				height = map.map[std::make_pair(BLACK, i)]->width;
+			}
+	}
+	return (height);
+}
+
+int		PhysicsEngine::mapHeightForPoint(float x, float y, e_color side)
+{
+	int height = 0;
+	if (side == BLACK)
+		height = Settings::WIDTH;
+
+	for (int i = map.plus; i < map.map.size() / 2; ++i)
+	{
+
+		if (map.map[std::make_pair(BLACK, i)]->y <= y && 
+			map.map[std::make_pair(BLACK, i)]->y + map.map[std::make_pair(BLACK, i)]->height >= y &&
+			((side == BLACK &&  map.map[std::make_pair(BLACK, i)]->width < height) || (side == WHITE &&  map.map[std::make_pair(BLACK, i)]->width > height)))
+			{
+				height = map.map[std::make_pair(BLACK, i)]->width;
+			}
 	}
 	return (height);
 }
