@@ -8,6 +8,7 @@ Star::Star(int X, int Y, e_color Color)
 	speed = rand() % 100 + 50; // mettre random 50 - 150
 	anim = 0;
 	addAnim = 1;
+	size = 16;
 	if (color == BLACK)
 		texture.loadFromFile("../Ressources/Images/darkstar.png");
 	else if (color == WHITE)

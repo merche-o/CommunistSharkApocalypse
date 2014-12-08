@@ -6,6 +6,7 @@
 class Star
 {
 public:
+	int	size;
 	int x;
 	int y;
 	int speed;

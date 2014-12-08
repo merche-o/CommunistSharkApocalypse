@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-PhysicsEngine::PhysicsEngine(Map & Map, std::vector<Player*> & Players)
-	: map(Map), players(Players), scale(1)
+PhysicsEngine::PhysicsEngine(Map & Map, std::vector<Player*> & Players, std::vector<Star*> & Stars)
+	: map(Map), players(Players), stars(Stars), scale(1)
 {
 }
 
@@ -34,10 +34,33 @@ void	PhysicsEngine::Update(void)
 		player->x = x;
 		player->y = y + map.speed;
 		player->nextFrameY = y;
+		starCollisions(player);
 		if (player->onTheFloor)
 			player->speedScale *= 0.8;
 		else
 			player->speedScale *= 0.85;
+	}
+}
+
+void	PhysicsEngine::starCollisions(Player * player)
+{
+	for(int i = 0; i < stars.size(); i++)
+	{
+		if (!(	player->x + player->getWidth()	< stars[i]->x	||
+				stars[i]->x + stars[i]->size	< player->x		||
+				player->y + player->getWidth()	< stars[i]->y	||
+				stars[i]->y + stars[i]->size	< player->y))
+		{
+			stars.erase(stars.begin() + i);
+			if (player->side == player->color)
+				player->scale += 0.05;
+			else
+				player->scale -= 0.05;
+			if (player->scale > 1)
+				player->scale = 1;
+			else if (player->scale < 0)
+				player->scale = 0;
+		}
 	}
 }
 
