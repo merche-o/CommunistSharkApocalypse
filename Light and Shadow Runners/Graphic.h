@@ -25,5 +25,6 @@ public:
 	void drawMap();
 	void drawStars();
 	void drawPlayer();
+	void drawLimits();
 };
 

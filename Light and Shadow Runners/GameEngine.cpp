@@ -73,6 +73,7 @@ void GameEngine::run()
 			graphic.drawMap();
 			graphic.drawStars();
 			graphic.drawPlayer();
+			graphic.drawLimits();
 		
 			graphic.RefreshWindow();
 		}

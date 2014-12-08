@@ -7,7 +7,8 @@
 Map::Map(void)
 {
 	plus = 0;
-	speed = 10.0;
+	center = 0;
+	speed = Settings::SPEED_MAP;
 	map[std::make_pair(BLACK, 0)] = new Rect(0, Settings::HEIGHT / 2, Settings::WIDTH / 2 - 100, Settings::HEIGHT / 2);
 	map[std::make_pair(WHITE, 0)] = new Rect(Settings::WIDTH / 2 - 100, Settings::HEIGHT / 2, Settings::WIDTH / 2 + 100, Settings::HEIGHT / 2);
 	map[std::make_pair(BLACK, 1)] = new Rect(0, 0, Settings::WIDTH / 2, Settings::HEIGHT / 2);
@@ -29,11 +30,11 @@ void Map::generator()
 
 	map[std::make_pair(BLACK, map.size() / 2)] = new Rect(0,
 															map[std::make_pair(BLACK, map.size() / 2 - 1)]->y - h,
-															Settings::WIDTH / 2 + w - 150,
+															Settings::WIDTH / 2 + w - 150 + center,
 															h);
-	map[std::make_pair(WHITE, map.size() / 2)] = new Rect(Settings::WIDTH / 2 + w - 150,
+	map[std::make_pair(WHITE, map.size() / 2)] = new Rect(Settings::WIDTH / 2 + w - 150 + center,
 															map[std::make_pair(WHITE, map.size() / 2 - 1)]->y - h,
-															Settings::WIDTH / 2 - w + 150,
+															Settings::WIDTH / 2 - w + 150 - center,
 															h);
 }
 
