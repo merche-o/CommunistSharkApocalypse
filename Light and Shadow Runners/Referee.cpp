@@ -204,7 +204,7 @@ void Referee::moveMapLine(Player *src)
 
 int Referee::killPlayer()
 {
-	/*for (int i = 0; i < playerList.size(); i++)
+	for (int i = 0; i < playerList.size(); i++)
 		{
 			if (playerList[i]->scale <= 0.1){
 				playerList.erase(playerList.begin() + i);
@@ -214,19 +214,7 @@ int Referee::killPlayer()
 				playerList.erase(playerList.begin() + i);
 				return i;
 			}
-				
-			else if (i == 0 && playerList[i]->x + playerList[i]->width > Settings::WIDTH){
-				playerList.erase(playerList.begin() + i);
-				return i;	
-			}
-			else if (i == 1 && playerList[i]->x > Settings::WIDTH){
-				playerList.erase(playerList.begin() + i);
-				return i;
-			}
-		}*/
-
-	
-
+		}
 		return -1;
 }	
 
@@ -271,27 +259,29 @@ void Referee::Rjump(Player *src)
 
 void Referee::changeSide(Player *src)
 {
-	if (src->home == true)
+	if (src->onTheFloor)
 	{
-		if( src->color == BLACK)
-			src->x = Settings::WIDTH - (src->x + src->width) ;
-		if (src->color == WHITE)
-			src->x = -(src->x+ src->width - (Settings::WIDTH + correctWidth));
-		src->home = false;
-	}
-	else if (src->home == false)
-	{
-		if (src->color == BLACK)
-			src->x = -(src->x + src->width - Settings::WIDTH);
-		if (src->color == WHITE)
-			src->x = Settings::WIDTH +   correctWidth  - (src->x +src->width);
-		src->home = true;
-	}
-	if (src->side == BLACK)
-		src->side = WHITE;
-	else
-		src->side = BLACK;
-			
+		if (src->home == true)
+		{
+			if( src->color == BLACK)
+				src->x = Settings::WIDTH - (src->x + src->width) ;
+			if (src->color == WHITE)
+				src->x = -(src->x+ src->width - (Settings::WIDTH + correctWidth));
+			src->home = false;
+		}
+		else if (src->home == false)
+		{
+			if (src->color == BLACK)
+				src->x = -(src->x + src->width - Settings::WIDTH);
+			if (src->color == WHITE)
+				src->x = Settings::WIDTH +   correctWidth  - (src->x +src->width);
+			src->home = true;
+		}
+		if (src->side == BLACK)
+			src->side = WHITE;
+		else
+			src->side = BLACK;
+	}		
 }
 
 void Referee::reducePlayerSize(Player *src)

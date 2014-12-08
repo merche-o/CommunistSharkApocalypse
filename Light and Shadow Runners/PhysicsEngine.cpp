@@ -31,6 +31,7 @@ void	PhysicsEngine::Update(void)
 		else
 			applyJump(player, x, y);
 		collideWalls(player, x, y);
+		collideScreen(player, x, y);
 		player->x = x;
 		player->y = y + map.speed;
 		player->nextFrameY = y;
@@ -74,6 +75,7 @@ void	PhysicsEngine::applyGravity(Player * player, float & x, float & y)
 		if (x + player->getWidth() + 1 > mapHeight)
 			x = mapHeight - player->getWidth() - 1;
 		player->fallSpeed *= 1.1;
+		player->onTheFloor = false;
 	}
 	else if (player->side == e_color::WHITE && x - 1 != mapHeight)
 	{
@@ -81,6 +83,7 @@ void	PhysicsEngine::applyGravity(Player * player, float & x, float & y)
 		if (x - 1 < mapHeight)
 			x = mapHeight + 1;
 		player->fallSpeed *= 1.1;
+		player->onTheFloor = false;
 
 	}
 	if (player->fallSpeed > player->maxFallSpeed /** player->scale*/)
@@ -160,6 +163,21 @@ int		PhysicsEngine::mapHeightForPoint(float x, float y, e_color side)
 }
 
 
+void		PhysicsEngine::collideScreen(Player * player, float & x, float & y)
+{
+	/*int		stroke;
+
+	if (player->scale == 1)
+		stroke = 3;
+	else
+		stroke = 1;*/
+	if (y < 0)
+		y = 0;
+	if (x < 0)
+		x = 0;
+	else if (x + player->getWidth() > Settings::WIDTH)
+		x = Settings::WIDTH - player->getWidth();
+}
 
 void		PhysicsEngine::collideWalls(Player * player, float & x, float & y)
 {

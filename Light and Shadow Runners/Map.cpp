@@ -29,11 +29,11 @@ void Map::generator()
 
 	map[std::make_pair(BLACK, map.size() / 2)] = new Rect(0,
 															map[std::make_pair(BLACK, map.size() / 2 - 1)]->y - h,
-															Settings::WIDTH / 2 + w - 150,
+															Settings::WIDTH / 2 + w - 150			+ 200,
 															h);
-	map[std::make_pair(WHITE, map.size() / 2)] = new Rect(Settings::WIDTH / 2 + w - 150,
+	map[std::make_pair(WHITE, map.size() / 2)] = new Rect(Settings::WIDTH / 2 + w - 150				+ 200,
 															map[std::make_pair(WHITE, map.size() / 2 - 1)]->y - h,
-															Settings::WIDTH / 2 - w + 150,
+															Settings::WIDTH / 2 - w + 150			- 200,
 															h);
 }
 
