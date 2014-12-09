@@ -51,6 +51,7 @@ void GameEngine::run()
 			loopTime = globalTimer.asSeconds();
 			globalClock.restart();
 			ref.playerMove();
+			ref.moveMapLine();
 			
 			winner = ref.killPlayer();
 			
@@ -73,6 +74,7 @@ void GameEngine::run()
 			graphic.drawMap();
 			graphic.drawStars();
 			graphic.drawPlayer();
+			graphic.drawLimits();
 		
 			graphic.RefreshWindow();
 		}

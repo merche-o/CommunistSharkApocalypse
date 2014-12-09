@@ -191,14 +191,34 @@ void Referee::RmoveDown(Player *src)
 	return;		   
 }				   
 
-void Referee::moveMapLine(Player *src)
-{				   
-	if (src->color == WHITE && src->home == false);
-	//src->scale -=  downSideSpeed * loopTime;	
-	//map->PushWhiteSide();
-	else if (src->color == BLACK && src->home == false);
-	//src->scale -=  downSideSpeed * loopTime;	
-	//map->PushBlackSide();
+void Referee::moveMapLine()
+{
+	int newCenter = 0;
+	int moveValue = 30 * loopTime;
+
+	if (moveValue < 1)
+		moveValue = 1;
+	for (int i = 0; i < playerList.size(); i++)
+	{
+		if (playerList[i]->color == WHITE && playerList[i]->home == false)
+		{
+			newCenter -= moveValue;
+		}
+		else if (playerList[i]->color == BLACK && playerList[i]->home == false)
+		{
+			newCenter += moveValue;
+		}
+	}
+	if (newCenter != 0)
+	{
+		map.center += newCenter;
+		for (int i = map.plus; i < map.map.size() / 2; ++i)
+		{
+			map.map[std::make_pair(BLACK, i)]->width += newCenter;
+			map.map[std::make_pair(WHITE, i)]->x += newCenter;
+			map.map[std::make_pair(WHITE, i)]->width -= newCenter;
+		}
+	}
 	return;		   
 }				   
 
@@ -210,10 +230,10 @@ int Referee::killPlayer()
 				playerList.erase(playerList.begin() + i);
 				return i;
 			}
-			else if (playerList[i]->y  > Settings::HEIGHT){
+			/*else if (playerList[i]->y  > Settings::HEIGHT){
 				playerList.erase(playerList.begin() + i);
 				return i;
-			}
+			}*/
 		}
 		return -1;
 }	
@@ -231,7 +251,6 @@ void Referee::jump(Player *src)
 			src->speedScale *= -1;
 		src->fallSpeed = src->initFallSpeed;
 	}
-
 
 	if (src->isJumping || (src->onTheFloor && src->JumpIsReleased))
 		{

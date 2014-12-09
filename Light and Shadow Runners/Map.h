@@ -10,6 +10,7 @@ public:
 	std::map<std::pair<e_color, int>, Rect*> map;
 	float speed;
 	int plus;
+	int center;
 
 public:
 	Map(void);

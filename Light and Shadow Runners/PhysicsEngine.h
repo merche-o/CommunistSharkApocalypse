@@ -19,11 +19,12 @@ public:
 	Map &			map;
 	std::vector<Player*> &	players;
 	std::vector<Star*> & stars;
+
 private:
 	float			scale;
 
 public:
-	PhysicsEngine(Map &, std::vector<Player*> &, std::vector<Star*> &);
+	PhysicsEngine(Map & Map, std::vector<Player*> & Players, std::vector<Star*> & Stars);
 	~PhysicsEngine(void);
 	void			Update(void);
 private:

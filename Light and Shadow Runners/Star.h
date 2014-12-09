@@ -17,6 +17,7 @@ public:
 
 public:
 	Star(int X, int Y, e_color Color);
+	Star(int X, int Y, e_color Color, int Speed);
 	~Star(void);
 
 	void nextFrame();

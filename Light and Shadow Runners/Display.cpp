@@ -42,9 +42,9 @@ void Display::loadPlayer(Player* p)
 		rect.setSize(sf::Vector2f(p->width * p->scale, p->height * p->scale));
 		rect.setFillColor(sf::Color(0, 0, 0));
 		if (p->scale == 1.0)
-			rect.setOutlineThickness(3);
+			rect.setOutlineThickness(-3);
 		else
-			rect.setOutlineThickness(1);
+			rect.setOutlineThickness(-1);
 		rect.setOutlineColor(sf::Color(255, 255, 255));
 		rect.setPosition(p->x, p->y);
 	}
@@ -53,9 +53,9 @@ void Display::loadPlayer(Player* p)
 		rect.setSize(sf::Vector2f(p->width * p->scale, p->height * p->scale));
 		rect.setFillColor(sf::Color(255, 255, 255));
 		if (p->scale == 1.0)
-			rect.setOutlineThickness(3);
+			rect.setOutlineThickness(-3);
 		else
-			rect.setOutlineThickness(1);
+			rect.setOutlineThickness(-1);
 		rect.setOutlineColor(sf::Color(0, 0, 0));
 		rect.setPosition(p->x, p->y);
 	}

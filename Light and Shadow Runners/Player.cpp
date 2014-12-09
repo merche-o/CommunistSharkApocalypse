@@ -17,14 +17,14 @@ Player::Player(float &LoopTime, int num)
 	maxSpeed = 500;
 	speedScale = 0;
 	jumpStrength = 0;
-	initJumpStrength = 900;
+	initJumpStrength = 500;
 	isJumping = false;
 	JumpIsReleased = true;
 	onTheFloor = false;
 	fallSpeed = 100;
 	initFallSpeed = 100;
 	maxFallSpeed = 900;
-	maxJumpTime = 0.1;
+	maxJumpTime = 0.2;
 	currentJumpTime = 0;
 	collideUp = false;
 	collideDown = false;
@@ -53,11 +53,7 @@ Player::~Player(void)
 
 int		Player::getWidth(void)
 {
-	int	size = this->width * this->scale;
-	if (this->scale == 1)
-		size += 6;
-	else
-		size += 2;
-	return (size);
+	return (this->width * this->scale);
 }
+
 
