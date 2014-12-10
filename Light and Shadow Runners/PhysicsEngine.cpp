@@ -165,12 +165,19 @@ int		PhysicsEngine::mapHeightForPoint(float x, float y, e_color side)
 
 void		PhysicsEngine::collideScreen(Player * player, float & x, float & y)
 {
+	player->collideScreen = false;
 	if (y < 0)
 		y = 0;
 	if (x < 0)
+	{
 		x = 0;
+		player->collideScreen = true;
+	}
 	else if (x + player->getWidth() > Settings::WIDTH)
+	{
 		x = Settings::WIDTH - player->getWidth();
+		player->collideScreen = true;
+	}
 }
 
 void		PhysicsEngine::collideWalls(Player * player, float & x, float & y)
