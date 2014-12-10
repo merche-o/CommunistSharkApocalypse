@@ -26,9 +26,9 @@ void Graphic::drawMap()
 		drawSquare(map.map[std::make_pair(BLACK, i)]->x, map.map[std::make_pair(BLACK, i)]->y, map.map[std::make_pair(BLACK, i)]->width, map.map[std::make_pair(BLACK, i)]->height, 0, 0, 0, 0, 255);
 		drawSquare(map.map[std::make_pair(WHITE, i)]->x, map.map[std::make_pair(WHITE, i)]->y, map.map[std::make_pair(WHITE, i)]->width, map.map[std::make_pair(WHITE, i)]->height, 0, 255, 255, 255, 255);
 	}
-	middleLine(Settings::WIDTH / 2 + map.center);
-	middleLine(Settings::WIDTH / 2 - 150 + map.center);
-	middleLine(Settings::WIDTH / 2 + 150 + map.center);
+	//middleLine(Settings::WIDTH / 2 + map.center);
+	//middleLine(Settings::WIDTH / 2 - 150 + map.center);
+	//middleLine(Settings::WIDTH / 2 + 150 + map.center);
 }
 
 void Graphic::drawStars()

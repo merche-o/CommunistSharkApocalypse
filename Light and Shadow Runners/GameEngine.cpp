@@ -84,13 +84,14 @@ void GameEngine::run()
 void GameEngine::starsGenerator()
 {
 	popStar += loopTime;
-	if (popStar >= 0.2)
+	if (popStar >= 0.5)
 	{
 		srand(map.map[std::make_pair(BLACK, map.map.size() / 2 - 1)]->y * time(NULL));
-		int x = rand() % 310;
+		int x1 = rand() % (310 + map.center);
+		int x2 = rand() % (310 - map.center);
 
-		stars.push_back(new Star(x, 0, WHITE));
-		stars.push_back(new Star(Settings::WIDTH - x - 16, 0, BLACK));
+		stars.push_back(new Star(x1, 0, WHITE));
+		stars.push_back(new Star(Settings::WIDTH - x2 - 16, 0, BLACK));
 		popStar = 0;
 	}
 }
