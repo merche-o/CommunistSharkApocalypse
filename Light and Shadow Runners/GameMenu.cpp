@@ -2,8 +2,8 @@
 #include "Settings.h"
 #include <iostream>
 
-GameMenu::GameMenu(sf::RenderWindow & w, Event & e, Parameters & p, bool & s)
-	: Display(w), win(w), event(e), param(p), start(s)
+GameMenu::GameMenu(sf::RenderWindow & w, Event & e, Parameters & p, bool & s, int &win)
+	: Display(w), win(w), event(e), param(p), start(s), winner(win)
 {
 	refresh = true;
 	posMenu = 0;
@@ -24,6 +24,15 @@ GameMenu::GameMenu(sf::RenderWindow & w, Event & e, Parameters & p, bool & s)
 	addTextMenu(CREDITS, new TextMenu(300, 300, "Marc", 64, 60, 150, 150));
 	addTextMenu(CREDITS, new TextMenu(300, 400, "Axel", 64, 60, 250, 250));
 	addKeyTextMenu(CREDITS, new TextMenu(400, 600, "Back", 64), &GameMenu::menuReturn);
+
+	addTextMenu(WIN, new TextMenu(350, 0, "GameOver", 128, 250, 60, 60));
+	addTextMenu(WIN, new TextMenu(300, 200, "Player 1 win !" , 64, 60, 250, 150));
+	addKeyTextMenu(WIN, new TextMenu(400, 600, "Back", 64), &GameMenu::menuReturn);
+
+	addTextMenu(WIN2, new TextMenu(350, 0, "GameOver", 128, 250, 60, 60));
+	addTextMenu(WIN2, new TextMenu(300, 200, "Player 2 win !" , 64, 60, 250, 150));
+	addKeyTextMenu(WIN2, new TextMenu(400, 600, "Back", 64), &GameMenu::menuReturn);
+	
 }
 
 
@@ -37,6 +46,7 @@ void GameMenu::run()
 	{
 		if (isPushed == true)
 		{
+			
 			if (posMenu != sizeKeyTextMenu[currentState] - 1) // If action != Return
 				beforeState.push_back(currentState);
 			(this->*(actionMenu[std::make_pair(currentState, posMenu)]))();
@@ -61,10 +71,13 @@ void GameMenu::run()
 	event.menuEvent(posMenu, isPushed, refresh);
 }
 
+
+
 void GameMenu::displayCurrentMenu()
 {
 	for (int i = 0; i < sizeTextMenu[currentState]; ++i)
 	{
+	
 		loadSplitText(textMenu[std::make_pair(currentState, i)]->x, 
 				textMenu[std::make_pair(currentState, i)]->y, 
 				font, 
@@ -105,12 +118,23 @@ void GameMenu::menuSettings()
 	currentState = SETTING;
 }
 
+void GameMenu::menuWin()
+{
+	currentState = WIN;
+	
+}
+
 void GameMenu::menuReturn()
 {
 	if (beforeState[beforeState.size() - 1] == NONE)
 		win.close();
 	else
-	{
+	{ if (currentState == WIN || currentState == WIN2)
+		{
+			currentState = MAIN;
+			return;
+		}
+	
 		currentState = beforeState[beforeState.size() - 1];
 		beforeState.erase(beforeState.begin() + beforeState.size() - 1);
 	}

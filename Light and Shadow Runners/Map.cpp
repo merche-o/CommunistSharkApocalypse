@@ -22,6 +22,20 @@ Map::~Map(void)
 {
 }
 
+void Map::init()
+{
+	plus = 0;
+	center = 0;
+	speed = Settings::SPEED_MAP;
+	map[std::make_pair(BLACK, 0)] = new Rect(0, Settings::HEIGHT / 2, Settings::WIDTH / 2 - 100, Settings::HEIGHT / 2);
+	map[std::make_pair(WHITE, 0)] = new Rect(Settings::WIDTH / 2 - 100, Settings::HEIGHT / 2, Settings::WIDTH / 2 + 100, Settings::HEIGHT / 2);
+	map[std::make_pair(BLACK, 1)] = new Rect(0, 0, Settings::WIDTH / 2, Settings::HEIGHT / 2);
+	map[std::make_pair(WHITE, 1)] = new Rect(Settings::WIDTH / 2, 0, Settings::WIDTH / 2, Settings::HEIGHT / 2);
+	for (int i = 0; i < 10; ++i)
+		generator();
+}
+
+
 void Map::generator()
 {
 	srand(map[std::make_pair(BLACK, map.size() / 2 - 1)]->y * time(NULL));

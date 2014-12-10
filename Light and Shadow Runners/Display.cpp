@@ -86,20 +86,20 @@ void Display::loadSplitText(float x, float y, sf::Font font, std::string str, in
 	text1.setPosition(x, y);
 	text1.setString(str);
 
-	sf::View clipView(sf::FloatRect(100.f, 100.f, 50.f, 200.f));
+	//sf::View clipView(sf::FloatRect(100.f, 100.f, 50.f, 200.f));
 	// ratio entre 0 et 1
-	clipView.setViewport(sf::FloatRect(100.f / win.getSize().x,
+	/*clipView.setViewport(sf::FloatRect(100.f / win.getSize().x,
                                    100.f / win.getSize().y,
                                    50.f  / win.getSize().x,
-                                   200.f / win.getSize().y));
-	win.setView(clipView);
+                                   200.f / win.getSize().y));*/
+	//win.setView(clipView);
 	win.draw(text1);
 	
 	
-	win.draw(text2);
+	//win.draw(text2);
 
 	
-	win.setView(win.getDefaultView());
+	//win.setView(win.getDefaultView());
 }
 
 void Display::drawSquare(float x, float y, int width, int height, int outline, int r, int g, int b, int a)

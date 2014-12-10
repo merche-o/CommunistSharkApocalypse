@@ -48,11 +48,13 @@ public:
 	float nextFrameY;
 	bool collideUp;
 	bool collideDown;
+	int num;
 private:
 
 public:
 	Player(float &loopTime, int num);
 	~Player(void);
 	int getWidth(void);
+	void reset();
 };
 

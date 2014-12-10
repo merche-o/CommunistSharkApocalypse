@@ -17,7 +17,8 @@
 enum e_state
 {
 	MENU,
-	GAME
+	GAME,
+	WINSCREEN
 };
 
 class GameEngine
@@ -41,6 +42,7 @@ private:
 	sf::Clock globalClock;
 	sf::Time globalTimer;
 	float loopTime;
+	int winner;
 
 public:
 	sf::RenderWindow window;
@@ -50,6 +52,7 @@ public:
 	~GameEngine(void);
 
 	void run();
+	void resetGame();
 	void starsGenerator();
 };
 

@@ -2,12 +2,12 @@
 #include <iostream>
 
 GameEngine::GameEngine(void)
-: map(), graphic(window, map,stars, player, loopTime), menu(window, event, parameters, restart), sound(), event(window, player), ref(player, loopTime, map),  physicEngine(map, player, stars)
+: map(), graphic(window, map,stars, player, loopTime), menu(window, event, parameters, restart, winner), sound(), event(window, player), ref(player, loopTime, map),  physicEngine(map, player, stars)
 {
 	sound.musicOFF();
 	sound.playMusic(sound.music);
 
-
+	winner = 2;
 	window.create(sf::VideoMode(Settings::WIDTH, Settings::HEIGHT), Settings::GAME_NAME);
 	window.setFramerateLimit(30);
 	
@@ -28,23 +28,51 @@ GameEngine::~GameEngine(void)
 {
 }
 
+void GameEngine::resetGame()
+{
+	map.map.clear();
+	map.init();
+	stars.clear();
+	int i = 0;
+	while (i < player.size())
+		{
+			player[i]->reset();
+			i++;
+	}
+	winner = 2;
+}
+
 void GameEngine::run()
 {
-	int winner = 2;
     while (window.isOpen())
     {
 		if (state == MENU)
 		{
-			menu.run();
+				menu.run();
 			if (restart == true)
 				state = GAME;
 		}
+		else	 if (state == WINSCREEN)
+				{
+					if ( winner == 0)
+			menu.currentState= GameMenu::WIN;
+					else 
+						menu.currentState =GameMenu::WIN2;
+			menu.refresh = true;
+					menu.run();
+					if (menu.currentState == GameMenu::MAIN)
+					{	state = MENU;
+				}
+				
+				
+			}
 		else if (state == GAME)
 		{
 			if (restart == true)
 			{
 				globalClock.restart();
 				restart = false;
+				resetGame();
 			}
 			
 			globalTimer = globalClock.getElapsedTime();
@@ -57,19 +85,19 @@ void GameEngine::run()
 			
 			if (winner != -1)
 			{
-				std::cout << "Player " << winner +1  <<  " win !" << std::endl;
-				state = MENU;
-
+				menu.beforeState.push_back(GameMenu::MAIN);
+				state = WINSCREEN;
 			}
+			
 
 
 
-			physicEngine.Update();
+		
 			event.checkEvent();
 
+				physicEngine.Update();
 			window.clear();
-			//map.generator();
-			starsGenerator();
+				starsGenerator();
 			map.scroll();
 			graphic.drawMap();
 			graphic.drawStars();
@@ -77,6 +105,8 @@ void GameEngine::run()
 			graphic.drawLimits();
 		
 			graphic.RefreshWindow();
+			//map.generator();
+		
 		}
     }
 }

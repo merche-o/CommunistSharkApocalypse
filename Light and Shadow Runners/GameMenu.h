@@ -11,12 +11,14 @@
 
 class GameMenu : public Display
 {
-private:
+public:
 	enum e_state
 	{
 		MAIN,
 		SETTING,
 		CREDITS,
+		WIN,
+		WIN2,
 		NONE
 	};
 
@@ -35,16 +37,19 @@ public:
 	Event & event;
 	bool & start;
 	bool refresh;
+	int &winner;
 
 public:
-	GameMenu(sf::RenderWindow & w, Event & e, Parameters &p, bool & s);
+	GameMenu(sf::RenderWindow & w, Event & e, Parameters &p, bool & s, int &win);
 	~GameMenu(void);
 
 	void run();
 	void displayCurrentMenu();
+	void winScreenRun();
 	void menuSettings();
 	void menuCredits();
 	void menuReturn();
+	void menuWin();
 	void menuPlay();
 	void addTextMenu(e_state state, TextMenu * text);
 	void addKeyTextMenu(e_state state, TextMenu * text, void(GameMenu:: *p)());

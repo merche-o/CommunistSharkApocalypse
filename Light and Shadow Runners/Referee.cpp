@@ -227,13 +227,13 @@ int Referee::killPlayer()
 	for (int i = 0; i < playerList.size(); i++)
 		{
 			if (playerList[i]->scale <= 0.1){
-				playerList.erase(playerList.begin() + i);
+				//playerList.erase(playerList.begin() + i);
 				return i;
 			}
-			/*else if (playerList[i]->y  > Settings::HEIGHT){
-				playerList.erase(playerList.begin() + i);
+			else if (playerList[i]->y  > Settings::HEIGHT){
+				//playerList.erase(playerList.begin() + i);
 				return i;
-			}*/
+			}
 		}
 		return -1;
 }	

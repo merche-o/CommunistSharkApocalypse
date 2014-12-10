@@ -18,5 +18,6 @@ public:
 
 	void generator();
 	void scroll();
+	void init();
 };
 
