@@ -28,6 +28,7 @@ Player::Player(float &LoopTime, int num)
 	currentJumpTime = 0;
 	collideUp = false;
 	collideDown = false;
+	collideScreen = false;
 	if (num == 1)
 	{
 		color = BLACK;

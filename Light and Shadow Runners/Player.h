@@ -48,6 +48,7 @@ public:
 	float nextFrameY;
 	bool collideUp;
 	bool collideDown;
+	bool collideScreen;
 private:
 
 public:
