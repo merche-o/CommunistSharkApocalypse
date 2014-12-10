@@ -230,10 +230,13 @@ int Referee::killPlayer()
 				//playerList.erase(playerList.begin() + i);
 				return i;
 			}
-			else if (playerList[i]->y  > Settings::HEIGHT){
-				//playerList.erase(playerList.begin() + i);
+			else if (playerList[i]->y  > Settings::HEIGHT)
+				return i;
+			else if (playerList[i]->onTheFloor && playerList[i]->collideScreen){
+		//		playerList.erase(playerList.begin() + i);
 				return i;
 			}
+		
 		}
 		return -1;
 }	
