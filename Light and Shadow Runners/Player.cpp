@@ -70,6 +70,7 @@ void Player::reset()
 	initFallSpeed = 100;
 	maxFallSpeed = 900;
 	maxJumpTime = 0.2;
+	mapHeight = 0;
 	currentJumpTime = 0;
 	collideUp = false;
 	collideDown = false;

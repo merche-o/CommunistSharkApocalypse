@@ -43,11 +43,11 @@ void Event::setPlayer1Key(bool value)
 				this->player[0]->inputMap[LEFT] = value;
 			else if (event.key.code == sf::Keyboard::Right)
 				this->player[0]->inputMap[RIGHT] = value;
-			else if (event.key.code == sf::Keyboard::Z)
+			else if (event.key.code == sf::Keyboard::W)
 				this->player[1]->inputMap[UP] = value;
 			else if (event.key.code == sf::Keyboard::S)
 				this->player[1]->inputMap[DOWN] = value;
-			else if (event.key.code == sf::Keyboard::Q)
+			else if (event.key.code == sf::Keyboard::A)
 				this->player[1]->inputMap[LEFT] = value;
 			else if (event.key.code == sf::Keyboard::D)
 				this->player[1]->inputMap[RIGHT] = value;

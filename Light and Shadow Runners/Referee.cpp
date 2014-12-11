@@ -194,7 +194,7 @@ void Referee::RmoveDown(Player *src)
 void Referee::moveMapLine()
 {
 	int newCenter = 0;
-	int moveValue = 30 * loopTime;
+	int moveValue = 80 * loopTime;
 
 	if (moveValue < 1)
 		moveValue = 1;
@@ -283,6 +283,7 @@ void Referee::changeSide(Player *src)
 {
 	if (src->onTheFloor)
 	{
+
 		if (src->home == true)
 		{
 			if( src->color == BLACK)

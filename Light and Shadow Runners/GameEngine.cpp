@@ -89,15 +89,14 @@ void GameEngine::run()
 				state = WINSCREEN;
 			}
 			
-
-
-
-		
 			event.checkEvent();
 
-				physicEngine.Update();
+			physicEngine.Update();
+			
 			window.clear();
-				starsGenerator();
+			
+			starsGenerator();
+			starChangeColor();
 			map.scroll();
 			graphic.drawMap();
 			graphic.drawStars();
@@ -111,14 +110,40 @@ void GameEngine::run()
     }
 }
 
+void GameEngine::starChangeColor()
+{
+	for (int i = 0; i < stars.size(); ++i)
+	{stars[i]->color = WHITE;
+		for (int j = map.plus; j < map.map.size() / 2; ++j)
+		{
+			if (stars[i]->y > map.map[std::make_pair(BLACK, j)]->y &&
+				stars[i]->y < (map.map[std::make_pair(BLACK, j)]->y + map.map[std::make_pair(BLACK, j)]->height))
+			{
+				if (stars[i]->x < map.map[std::make_pair(BLACK, j)]->width)
+				{
+					stars[i]->color = WHITE;
+					stars[i]->texture.loadFromFile("../Ressources/Images/lightstar.png");
+				}
+				else if (stars[i]->x > map.map[std::make_pair(BLACK, j)]->width)
+				{
+					stars[i]->color = BLACK;
+					stars[i]->texture.loadFromFile("../Ressources/Images/darkstar.png");
+				}
+			}
+		}
+	}
+}
+
 void GameEngine::starsGenerator()
 {
 	popStar += loopTime;
 	if (popStar >= 0.5)
 	{
 		srand(map.map[std::make_pair(BLACK, map.map.size() / 2 - 1)]->y * time(NULL));
-		int x1 = rand() % (310 + map.center);
-		int x2 = rand() % (310 - map.center);
+		//int x1 = rand() % (310 + map.center);
+		//int x2 = rand() % (310 - map.center);
+		int x1 = rand() % (450 + map.center);
+		int x2 = rand() % (450 - map.center);
 
 		stars.push_back(new Star(x1, 0, WHITE));
 		stars.push_back(new Star(Settings::WIDTH - x2 - 16, 0, BLACK));

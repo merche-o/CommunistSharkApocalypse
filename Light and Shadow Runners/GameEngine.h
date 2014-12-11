@@ -53,6 +53,7 @@ public:
 
 	void run();
 	void resetGame();
+	void starChangeColor();
 	void starsGenerator();
 };
 

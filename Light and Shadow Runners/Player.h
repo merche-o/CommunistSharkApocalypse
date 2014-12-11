@@ -35,6 +35,7 @@ public:
 	int inDash;
 	std::vector<bool> inputMap;
 	e_color side;
+	int mapHeight;
 	float jumpStrength;
 	float initJumpStrength;
 	float maxFallSpeed;

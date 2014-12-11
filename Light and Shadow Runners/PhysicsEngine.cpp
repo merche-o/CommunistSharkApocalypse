@@ -29,7 +29,7 @@ void	PhysicsEngine::Update(void)
 		else
 			applyJump(player, x, y);
 		collideWalls(player, x, y);
-		y += Settings::SPEED_MAP;
+		y += map.speed;
 		collideScreen(player, x, y);
 		player->x = x;
 		player->y = y;

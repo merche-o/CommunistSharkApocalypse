@@ -26,11 +26,11 @@ GameMenu::GameMenu(sf::RenderWindow & w, Event & e, Parameters & p, bool & s, in
 	addKeyTextMenu(CREDITS, new TextMenu(400, 600, "Back", 64), &GameMenu::menuReturn);
 
 	addTextMenu(WIN, new TextMenu(350, 0, "GameOver", 128, 250, 60, 60));
-	addTextMenu(WIN, new TextMenu(300, 200, "Darkside win !" , 64, 60, 250, 150));
+	addTextMenu(WIN, new TextMenu(300, 200, "Shadow wins !" , 64, 60, 250, 150));
 	addKeyTextMenu(WIN, new TextMenu(400, 600, "Back", 64), &GameMenu::menuReturn);
 
 	addTextMenu(WIN2, new TextMenu(350, 0, "GameOver", 128, 250, 60, 60));
-	addTextMenu(WIN2, new TextMenu(300, 200, "LightSide  win !" , 64, 60, 250, 150));
+	addTextMenu(WIN2, new TextMenu(300, 200, "Light wins !" , 64, 60, 250, 150));
 	addKeyTextMenu(WIN2, new TextMenu(400, 600, "Back", 64), &GameMenu::menuReturn);
 	
 }
