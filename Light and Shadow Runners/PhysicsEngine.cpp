@@ -52,14 +52,9 @@ void	PhysicsEngine::starCollisions(Player * player)
 				stars[i]->y + stars[i]->size	< player->y))
 		{
 			stars.erase(stars.begin() + i);
-			if (player->side == player->color)
-				player->scale += 0.05;
-			else
-				player->scale -= 0.05;
+			player->scale += 0.05;
 			if (player->scale > 1)
 				player->scale = 1;
-			else if (player->scale < 0)
-				player->scale = 0;
 		}
 	}
 }
