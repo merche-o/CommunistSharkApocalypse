@@ -142,8 +142,8 @@ void GameEngine::starsGenerator()
 		srand(map.map[std::make_pair(BLACK, map.map.size() / 2 - 1)]->y * time(NULL));
 		//int x1 = rand() % (310 + map.center);
 		//int x2 = rand() % (310 - map.center);
-		int x1 = rand() % (450 + map.center);
-		int x2 = rand() % (450 - map.center);
+		int x1 = rand() % (480);
+		int x2 = rand() % (480);
 
 		stars.push_back(new Star(x1, 0, WHITE));
 		stars.push_back(new Star(Settings::WIDTH - x2 - 16, 0, BLACK));
